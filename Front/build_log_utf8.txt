@@ -1,0 +1,329 @@
+﻿[33mΓ¥»[39m Building...
+node.exe : 
+[1m[31mError: 
+Cannot apply unknown 
+utility class 
+`font-secondary`
+At line:1 char:1
++ & "C:\Program Files
+\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: ([1m[3   
+ 1mError:...font-    
+secondary`:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+    at 
+onInvalidCandidate (C
+:\Users\takpa\WorkSpa
+ce\projets\recrutemen
+t\recru-front\Front\n
+ode_modules\tailwindc
+ss\dist\lib.js:21:151
+1)
+    at Te (C:\Users\t
+akpa\WorkSpace\projet
+s\recrutement\recru-f
+ront\Front\node_modul
+es\tailwindcss\dist\l
+ib.js:16:36652)
+    at C:\Users\takpa
+\WorkSpace\projets\re
+crutement\recru-front
+\Front\node_modules\t
+ailwindcss\dist\lib.j
+s:21:355
+    at Rr (C:\Users\t
+akpa\WorkSpace\projet
+s\recrutement\recru-f
+ront\Front\node_modul
+es\tailwindcss\dist\l
+ib.js:3:1718)
+    at _ (C:\Users\ta
+kpa\WorkSpace\projets
+\recrutement\recru-fr
+ont\Front\node_module
+s\tailwindcss\dist\li
+b.js:3:1377)
+    at $e (C:\Users\t
+akpa\WorkSpace\projet
+s\recrutement\recru-f
+ront\Front\node_modul
+es\tailwindcss\dist\l
+ib.js:21:172)
+    at un (C:\Users\t
+akpa\WorkSpace\projet
+s\recrutement\recru-f
+ront\Front\node_modul
+es\tailwindcss\dist\l
+ib.js:38:294)
+    at async cn (C:\U
+sers\takpa\WorkSpace\
+projets\recrutement\r
+ecru-front\Front\node
+_modules\tailwindcss\
+dist\lib.js:38:631)
+    at async Xr (C:\U
+sers\takpa\WorkSpace\
+projets\recrutement\r
+ecru-front\Front\node
+_modules\@tailwindcss
+\node\dist\index.js:1
+0:3417)
+    at async I (C:\Us
+ers\takpa\WorkSpace\p
+rojets\recrutement\re
+cru-front\Front\node_
+modules\@tailwindcss\
+postcss\dist\index.js
+:10:3977)[39m[22m
+[32mΓ£ö[39m Building...
+[35mPrerendered 0 static routes.[39m
+Application bundle generation failed. [5.863 seconds] - 2026-01-16T09:39:33.017Z
+
+[1m[31m[31mX [41;
+31m[[41;97mERROR[41
+;31m][0m [1mCould 
+not resolve "../../as
+sets/config/menu.json
+"[0m
+
+    src/app/layouts/f
+ooter/footer.componen
+t.ts:4:17:
+[37m      4 Γöé 
+import menu from [32
+m'../../assets/config
+/menu.json'[37m;
+        Γò╡          
+        [32m~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~[0m
+
+
+[31mX [41;31m[[41;
+97mERROR[41;31m][0m
+ [1mCould not 
+resolve "../../assets
+/config/social.json"
+[0m
+
+    src/app/layouts/f
+ooter/footer.componen
+t.ts:5:19:
+[37m      5 Γöé 
+import social from [
+32m'../../assets/conf
+ig/social.json'[37m;
+        Γò╡          
+          [32m~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~[0m
+
+
+[31mX [41;31m[[41;
+97mERROR[41;31m][0m
+ [1mCould not 
+resolve "../../assets
+/config/config.json"
+[0m
+
+    src/app/layouts/f
+ooter/footer.componen
+t.ts:6:19:
+[37m      6 Γöé 
+import config from [
+32m'../../assets/conf
+ig/config.json'[37m;
+        Γò╡          
+          [32m~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~[0m
+
+
+[31mX [41;31m[[41;
+97mERROR[41;31m][0m
+ [1mCould not 
+resolve "../../assets
+/config/menu.json"[0
+m
+
+    src/app/layouts/h
+eader/header.componen
+t.ts:5:17:
+[37m      5 Γöé 
+import menu from [32
+m'../../assets/config
+/menu.json'[37m;
+        Γò╡          
+        [32m~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~[0m
+
+
+[31mX [41;31m[[41;
+97mERROR[41;31m][0m
+ [1mCould not 
+resolve "../../assets
+/config/social.json"
+[0m
+
+    src/app/layouts/h
+eader/header.componen
+t.ts:6:19:
+[37m      6 Γöé 
+import social from [
+32m'../../assets/conf
+ig/social.json'[37m;
+        Γò╡          
+          [32m~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~[0m
+
+
+[31mX [41;31m[[41;
+97mERROR[41;31m][0m
+ [1mCould not 
+resolve "../../assets
+/config/menu.json"[0
+m
+
+    src/app/layouts/f
+ooter/footer.componen
+t.ts:4:17:
+[37m      4 Γöé 
+import menu from [32
+m'../../assets/config
+/menu.json'[37m;
+        Γò╡          
+        [32m~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~[0m
+
+
+[31mX [41;31m[[41;
+97mERROR[41;31m][0m
+ [1mCould not 
+resolve "../../assets
+/config/social.json"
+[0m
+
+    src/app/layouts/f
+ooter/footer.componen
+t.ts:5:19:
+[37m      5 Γöé 
+import social from [
+32m'../../assets/conf
+ig/social.json'[37m;
+        Γò╡          
+          [32m~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~[0m
+
+
+[31mX [41;31m[[41;
+97mERROR[41;31m][0m
+ [1mCould not 
+resolve "../../assets
+/config/config.json"
+[0m
+
+    src/app/layouts/f
+ooter/footer.componen
+t.ts:6:19:
+[37m      6 Γöé 
+import config from [
+32m'../../assets/conf
+ig/config.json'[37m;
+        Γò╡          
+          [32m~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~[0m
+
+
+[31mX [41;31m[[41;
+97mERROR[41;31m][0m
+ [1mCould not 
+resolve "../../assets
+/config/menu.json"[0
+m
+
+    src/app/layouts/h
+eader/header.componen
+t.ts:5:17:
+[37m      5 Γöé 
+import menu from [32
+m'../../assets/config
+/menu.json'[37m;
+        Γò╡          
+        [32m~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~[0m
+
+
+[31mX [41;31m[[41;
+97mERROR[41;31m][0m
+ [1mCould not 
+resolve "../../assets
+/config/social.json"
+[0m
+
+    src/app/layouts/h
+eader/header.componen
+t.ts:6:19:
+[37m      6 Γöé 
+import social from [
+32m'../../assets/conf
+ig/social.json'[37m;
+        Γò╡          
+          [32m~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~[0m
+
+
+[31mX [41;31m[[41;
+97mERROR[41;31m][0m
+ [1mCannot apply 
+unknown utility 
+class 
+`font-secondary`[0m 
+[1m[35m[plugin 
+angular-css][0m
+
+    
+src/styles.css:1:0:
+[37m      1 Γöé 
+[32m[37m/* You can 
+add global styles to 
+this file, and also 
+import other st...
+        Γò╡ 
+[32m^[0m
+
+  The plugin 
+"angular-css" was 
+triggered by this 
+import
+
+    angular:styles/gl
+obal:styles:1:8:
+[37m      1 Γöé 
+@import [32m'src/sty
+les.css'[37m;
+        Γò╡         
+[32m~~~~~~~~~~~~~~~~
+[0m
+
+[39m[22m

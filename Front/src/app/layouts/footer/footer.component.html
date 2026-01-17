@@ -1,0 +1,60 @@
+<footer class="section relative mt-12 pt-[70px] pb-[50px] footer">
+  <img
+    class="footer-bg-shape"
+    src="/images/footer-bg-shape.svg"
+    alt="footer background"
+  />
+  <div class="text-center">
+    <div class="mb-6 inline-flex">
+      <a routerLink="/" class="navbar-brand">
+        <img src="/images/logo/logo (2).png" alt="e-link" class="logo h-[39px]">
+      </a>
+    </div>
+
+    <p class="max-w-[638px] mx-auto text-light mb-6">
+      {{ footerContent }}
+    </p>
+
+    <ul class="mb-12 mt-6 flex flex-wrap justify-center space-x-2 lg:space-x-4">
+      <li *ngFor="let item of menuItems" class="inline-block">
+        <a
+          [routerLink]="item.url"
+          class="p-2 font-bold text-dark hover:text-primary lg:p-4 text-sm tracking-wider"
+        >
+          {{ item.name }}
+        </a>
+      </li>
+    </ul>
+
+    <!-- social icons -->
+    <div class="inline-flex mb-12">
+      <ul class="flex space-x-6 socials justify-center">
+        <li *ngIf="socialLinks.facebook">
+          <a [href]="socialLinks.facebook" target="_blank" class="text-2xl hover:text-primary transition-colors">
+            <lucide-icon name="facebook" class="h-6 w-6"></lucide-icon>
+          </a>
+        </li>
+        <li *ngIf="socialLinks.twitter">
+          <a [href]="socialLinks.twitter" target="_blank" class="text-2xl hover:text-primary transition-colors">
+            <lucide-icon name="twitter" class="h-6 w-6"></lucide-icon>
+          </a>
+        </li>
+        <li *ngIf="socialLinks.linkedin">
+          <a [href]="socialLinks.linkedin" target="_blank" class="text-2xl hover:text-primary transition-colors">
+            <lucide-icon name="linkedin" class="h-6 w-6"></lucide-icon>
+          </a>
+        </li>
+        <li *ngIf="socialLinks.github">
+          <a [href]="socialLinks.github" target="_blank" class="text-2xl hover:text-primary transition-colors">
+            <lucide-icon name="github" class="h-6 w-6"></lucide-icon>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- copyright -->
+    <p class="text-sm text-light">
+      {{ copyright }}
+    </p>
+  </div>
+</footer>
