@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "title": "The Art of Minimalist Living",
+    "slug": "the-art-of-minimalist-living",
+    "excerpt": "Discover how simplifying your space can lead to a more peaceful and productive life. Minimalist living is not about having less, it's about making room for more of what matters.",
+    "date": "2024-03-15",
+    "author": "John Bravo",
+    "category": "Lifestyle",
+    "image": "https://picsum.photos/800/600?random=1",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "title": "Why TypeScript is Essential for Modern Web Development",
+    "slug": "why-typescript-is-essential",
+    "excerpt": "TypeScript has become a staple in the web development world. Explore the benefits of static typing and how it can prevent bugs in your large-scale applications.",
+    "date": "2024-03-10",
+    "author": "John Bravo",
+    "category": "Technology",
+    "image": "https://picsum.photos/800/600?random=2",
+    "featured": true
+  },
+  {
+    "id": 3,
+    "title": "Mastering CSS Grid Layouts",
+    "slug": "mastering-css-grid",
+    "excerpt": "CSS Grid is a powerful tool for creating complex layouts with ease. Learn the fundamentals and advanced techniques to level up your front-end skills.",
+    "date": "2024-03-05",
+    "author": "John Bravo",
+    "category": "Design",
+    "image": "https://picsum.photos/800/600?random=3",
+    "featured": true
+  },
+  {
+    "id": 4,
+    "title": "Sustainable Travel Tips for Your Next Adventure",
+    "slug": "sustainable-travel-tips",
+    "excerpt": "Traveling the world doesn't have to come at a cost to the environment. Check out these tips for eco-friendly tourism and reduced carbon footprint.",
+    "date": "2024-03-01",
+    "author": "Jane Doe",
+    "category": "Travel",
+    "image": "https://picsum.photos/800/600?random=4",
+    "featured": false
+  },
+  {
+    "id": 5,
+    "title": "The Rise of Artificial Intelligence in Creative Fields",
+    "slug": "ai-in-creative-fields",
+    "excerpt": "From digital art to music composition, AI is transforming how we create. Is it a tool or a competitor? Let's dive into the future of creativity.",
+    "date": "2024-02-25",
+    "author": "John Bravo",
+    "category": "Technology",
+    "image": "https://picsum.photos/800/600?random=5",
+    "featured": false
+  },
+  {
+    "id": 6,
+    "title": "Healthy Brunch Recipes for a Lazy Sunday",
+    "slug": "healthy-brunch-recipes",
+    "excerpt": "Fuel your body with these delicious and nutritious brunch ideas. Perfect for sharing with friends and family during a relaxed morning.",
+    "date": "2024-02-20",
+    "author": "Chef Mario",
+    "category": "Food",
+    "image": "https://picsum.photos/800/600?random=6",
+    "featured": false
+  }
+]

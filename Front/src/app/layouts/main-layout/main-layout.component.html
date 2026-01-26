@@ -1,9 +1,11 @@
-<div class="min-h-screen flex flex-col">
-  <app-header></app-header>
+<div [class.dark]="isDarkMode()">
+  @if (!isDashboardRoute()) {
+    <app-header />
+  }
 
-  <main class="flex-1">
-    <router-outlet></router-outlet>
-  </main>
+  <router-outlet />
 
-  <app-footer></app-footer>
+  @if (!isDashboardRoute()) {
+    <app-footer />
+  }
 </div>

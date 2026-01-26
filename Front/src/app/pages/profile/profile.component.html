@@ -1,0 +1,218 @@
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">Mon Profil</h1>
+
+    @if (currentUser()) {
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+          <div class="bg-white rounded-xl shadow-md p-6">
+            <!-- Photo de profil -->
+            <div class="text-center mb-6">
+              @if (currentUser()!.profilePhoto) {
+                <img [src]="currentUser()!.profilePhoto" alt="Profile" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
+              } @else {
+                <div class="w-32 h-32 rounded-full bg-terracotta-100 flex items-center justify-center mx-auto mb-4">
+                  <span class="text-4xl font-bold text-terracotta-600">
+                    {{ currentUser()!.firstName.charAt(0) }}{{ currentUser()!.lastName.charAt(0) }}
+                  </span>
+                </div>
+              }
+              <h2 class="text-xl font-bold text-gray-900">{{ currentUser()!.firstName }} {{ currentUser()!.lastName }}</h2>
+              <p class="text-gray-600">{{ currentUser()!.email }}</p>
+            </div>
+
+            <!-- Statistiques -->
+            @if (applicationStats()) {
+              <div class="border-t pt-6 space-y-4">
+                <div>
+                  <p class="text-sm text-gray-600">Candidatures envoyées</p>
+                  <p class="text-2xl font-bold text-gray-900">{{ applicationStats()!.total }}</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">En cours</p>
+                  <p class="text-xl font-semibold text-amber-600">{{ applicationStats()!.inProgress }}</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">Acceptées</p>
+                  <p class="text-xl font-semibold text-green-600">{{ applicationStats()!.accepted }}</p>
+                </div>
+              </div>
+            }
+
+            <!-- CV -->
+            <div class="border-t pt-6 mt-6">
+              <h3 class="font-semibold text-gray-900 mb-3">Mon CV</h3>
+              @if (currentUser()!.cvUrl) {
+                <div class="space-y-3">
+                  <div class="flex items-center gap-2 text-sm text-green-600">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    CV téléchargé
+                  </div>
+                  <a [href]="currentUser()!.cvUrl" target="_blank" class="block text-sm text-terracotta-600 hover:text-terracotta-700">
+                    Voir mon CV
+                  </a>
+                </div>
+              } @else {
+                <p class="text-sm text-gray-500 mb-3">Aucun CV téléchargé</p>
+              }
+              
+              <input
+                id="cv-input"
+                type="file"
+                accept=".pdf,.doc,.docx"
+                (change)="onFileSelected($event)"
+                class="hidden"
+              />
+              <button
+                (click)="triggerFileInput()"
+                [disabled]="isUploadingCV()"
+                class="w-full px-4 py-2 bg-terracotta-600 text-white rounded-lg hover:bg-terracotta-700 transition-colors text-sm font-medium disabled:opacity-50"
+              >
+                @if (isUploadingCV()) {
+                  <span>Téléchargement...</span>
+                } @else {
+                  <span>{{ currentUser()!.cvUrl ? 'Remplacer' : 'Télécharger' }} mon CV</span>
+                }
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="lg:col-span-2">
+          <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex items-center justify-between mb-6">
+              <h2 class="text-2xl font-bold text-gray-900">Informations personnelles</h2>
+              <button
+                (click)="toggleEdit()"
+                class="px-4 py-2 text-terracotta-600 hover:text-terracotta-700 font-medium"
+              >
+                {{ isEditing() ? 'Annuler' : 'Modifier' }}
+              </button>
+            </div>
+
+            <form (ngSubmit)="saveProfile()" class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Prénom</label>
+                  <input
+                    type="text"
+                    [value]="firstName()"
+                    (input)="firstName.set($any($event.target).value)"
+                    [disabled]="!isEditing()"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent disabled:bg-gray-100"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Nom</label>
+                  <input
+                    type="text"
+                    [value]="lastName()"
+                    (input)="lastName.set($any($event.target).value)"
+                    [disabled]="!isEditing()"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent disabled:bg-gray-100"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                <input
+                  type="email"
+                  [value]="email()"
+                  disabled
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
+                />
+                <p class="text-xs text-gray-500 mt-1">L'email ne peut pas être modifié</p>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Téléphone</label>
+                <input
+                  type="tel"
+                  [value]="phone()"
+                  (input)="phone.set($any($event.target).value)"
+                  [disabled]="!isEditing()"
+                  placeholder="+221 XX XXX XX XX"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent disabled:bg-gray-100"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Adresse</label>
+                <input
+                  type="text"
+                  [value]="address()"
+                  (input)="address.set($any($event.target).value)"
+                  [disabled]="!isEditing()"
+                  placeholder="Ville, Pays"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent disabled:bg-gray-100"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Niveau d'études</label>
+                <select
+                  [value]="educationLevel()"
+                  (change)="educationLevel.set($any($event.target).value)"
+                  [disabled]="!isEditing()"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent disabled:bg-gray-100"
+                >
+                  <option value="">Sélectionnez un niveau</option>
+                  <option value="Bac">Bac</option>
+                  <option value="Bac+2">Bac+2</option>
+                  <option value="Licence">Licence (Bac+3)</option>
+                  <option value="Master">Master (Bac+5)</option>
+                  <option value="Doctorat">Doctorat (Bac+8)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Expérience professionnelle</label>
+                <textarea
+                  [value]="experience()"
+                  (input)="experience.set($any($event.target).value)"
+                  [disabled]="!isEditing()"
+                  rows="4"
+                  placeholder="Décrivez brièvement votre expérience..."
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent disabled:bg-gray-100"
+                ></textarea>
+              </div>
+
+              @if (isEditing()) {
+                <div class="flex gap-4">
+                  <button
+                    type="submit"
+                    [disabled]="isSaving()"
+                    class="px-6 py-3 bg-terracotta-600 text-white rounded-lg hover:bg-terracotta-700 transition-colors font-medium disabled:opacity-50"
+                  >
+                    @if (isSaving()) {
+                      <span>Enregistrement...</span>
+                    } @else {
+                      <span>Enregistrer les modifications</span>
+                    }
+                  </button>
+                </div>
+              }
+            </form>
+          </div>
+
+          <!-- Mes candidatures -->
+          <div class="bg-white rounded-xl shadow-md p-6 mt-8">
+            <div class="flex items-center justify-between mb-6">
+              <h2 class="text-2xl font-bold text-gray-900">Mes candidatures</h2>
+              <a routerLink="/my-applications" class="text-terracotta-600 hover:text-terracotta-700 font-medium">
+                Voir tout
+              </a>
+            </div>
+            <p class="text-gray-600">Consultez l'état de vos candidatures et gérez vos postulations.</p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
