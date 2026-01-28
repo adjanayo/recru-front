@@ -1,6 +1,11 @@
 /* 1. Nouveau moteur Tailwind 4 */
 @import "tailwindcss";
 
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/aspect-ratio";
+@plugin "tailwindcss-animate";
+
 /* 2. Configuration du Thème (Remplace le fichier tailwind.config.ts) */
 @theme {
   /* Vos couleurs personnalisées */
@@ -53,16 +58,16 @@
   /* Ombres personnalisées */
   --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-card: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --background-image-pattern-dots: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='%239ca3af' fill-opacity='0.4'/%3E%3C/svg%3E");
+  /* --background-image-pattern-dots: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='%239ca3af' fill-opacity='0.4'/%3E%3C/svg%3E"); */
 
 }
 
+@utility pattern-dots {
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%239ca3af' fill-opacity='0.4'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
 /* 3. Motifs Africains et Patterns */
 @layer components {
-  .pattern-dots {
-    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f59e0b' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
-  }
-
   .pattern-zigzag {
     background-image: linear-gradient(135deg, currentColor 25%, transparent 25%),
       linear-gradient(225deg, currentColor 25%, transparent 25%),
@@ -87,7 +92,91 @@
   }
 
   .card-soft:hover {
-    box-shadow: var(--shadow-card);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+  /* Boutons sémantiques */
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+    @apply px-8 py-4 rounded-full shadow-lg transform transition hover:scale-105 flex items-center justify-center font-medium;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-primary-dark);
+  }
+
+  .btn-secondary {
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary-dark);
+    @apply px-8 py-4 rounded-full hover:bg-terracotta-50 flex items-center justify-center font-medium transition-colors;
+  }
+
+  .btn-outline {
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    @apply px-6 py-2 rounded-lg hover:bg-terracotta-50 transition-colors font-medium;
+  }
+
+  .btn-white {
+    background-color: white;
+    color: var(--color-primary-dark);
+    @apply px-8 py-4 rounded-full shadow-lg transform transition hover:scale-105 flex items-center justify-center font-medium;
+  }
+
+  .btn-white:hover {
+    background-color: var(--color-amber-50);
+  }
+
+  /* Cards */
+  .card-feature {
+    background-color: white;
+    @apply relative p-8 rounded-2xl shadow-md hover:shadow-xl transition-all h-full transform hover:scale-[1.01];
+  }
+
+  .card-base {
+    background-color: white;
+    @apply rounded-xl shadow-md hover:shadow-lg transition-all p-6;
+  }
+
+  /* Inputs */
+  .input-base {
+    background-color: white;
+    color: var(--color-text-main);
+    @apply w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-terracotta-500 focus:border-transparent outline-none transition-all;
+  }
+
+  .checkbox-base {
+    @apply h-4 w-4 text-terracotta-600 focus:ring-terracotta-500 border-gray-300 rounded-md;
+  }
+
+  /* Badges */
+  .badge-amber {
+    background-color: var(--color-amber-50);
+    color: var(--color-amber-700);
+    @apply px-3 py-1 text-xs font-medium rounded-full;
+  }
+
+  .badge-green {
+    background-color: var(--color-emerald-50);
+    color: var(--color-emerald-700);
+    @apply px-3 py-1 text-xs font-medium rounded-full;
+  }
+
+  /* Décorations */
+  .icon-box {
+    background: linear-gradient(to bottom right, var(--color-terracotta-500), var(--color-primary));
+    @apply w-14 h-14 rounded-xl flex items-center justify-center text-white mb-6 shadow-md;
+  }
+
+  .step-number {
+    background: linear-gradient(to bottom right, var(--color-terracotta-500), var(--color-primary));
+    @apply flex items-center justify-center w-16 h-16 rounded-full text-white font-bold text-xl shadow-lg;
+  }
+
+  .decoration-bg {
+    background: linear-gradient(to right, var(--color-terracotta-500), var(--color-secondary));
+    @apply absolute inset-0 rounded-2xl transform -rotate-2 group-hover:rotate-0 transition-transform;
   }
 
   /* Animations personnalisées */
@@ -120,62 +209,57 @@
   }
 }
 
-/* 4. Base & Reset */
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: light dark;
+@layer base {
+  :root {
+    --color-primary: #c94d3a;
+    --color-primary-dark: #a73d2f;
+    --color-secondary: #f59e0b;
+    --color-success: #059669;
+    --color-error: #dc2626;
+    --color-bg-light: #ffffff;
+    --color-bg-dark: #242424;
+    --color-text-main: #213547;
+    --color-text-muted: #6b7280;
 
-  /* On initialise les couleurs par défaut */
-  background-color: #ffffff;
-  color: #213547;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color-scheme: light dark;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    /* On initialise les couleurs par défaut */
+    background-color: var(--color-bg-light);
+    color: var(--color-text-main);
 
-/* Mode Sombre (pour la classe .dark ajoutée par Angular) */
-.dark {
-  background-color: #242424;
-  color: rgba(255, 255, 255, 0.87);
-}
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  /* Retrait de display: flex pour éviter de casser la Navbar */
-}
+  /* Mode Sombre (pour la classe .dark ajoutée par Angular) */
+  .dark {
+    background-color: var(--color-bg-dark);
+    color: rgba(255, 255, 255, 0.87);
+  }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+  }
 
-/* button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  background-color: #f9f9f9;
-  cursor: pointer;
-  transition: border-color 0.25s;
-} */
+  a {
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
+  }
+  a:hover {
+    color: #535bf2;
+  }
 
-.dark button {
-  background-color: #1a1a1a;
-}
-
-button:hover {
-  border-color: #646cff;
+  button:hover {
+    border-color: #646cff;
+  }
 }
 
 /* Utilitaires de conteneur */
@@ -185,6 +269,4 @@ button:hover {
   padding: 2rem;
 }
 
-@theme {
-  /* On définit une variable d'image réutilisable */
-}
+

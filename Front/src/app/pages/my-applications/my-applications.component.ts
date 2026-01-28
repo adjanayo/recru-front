@@ -3,18 +3,23 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ApplicationService } from '../../services/application.service';
 import { AuthService } from '../../services/auth.service';
+import { PaginationComponent } from '../../components/pagination/pagination.component';
 import { Application } from '../../models/application.model';
 
 @Component({
   selector: 'app-my-applications',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, PaginationComponent],
   templateUrl: './my-applications.component.html',
   styleUrl: './my-applications.component.css'
 })
 export class MyApplicationsComponent {
   currentUser = computed(() => this.authService.currentUser());
-  
+
+  currentPage = signal<number>(1);
+  pageSize = signal<number>(6);
+  selectedFilter = signal<string>('all');
+
   myApplications = computed(() => {
     const user = this.currentUser();
     return user ? this.applicationService.getApplicationsByUser(user.id) : [];
@@ -23,12 +28,30 @@ export class MyApplicationsComponent {
   filteredApplications = computed(() => {
     const filter = this.selectedFilter();
     const apps = this.myApplications();
-    
-    if (filter === 'all') return apps;
-    return apps.filter(app => app.status === filter);
+    const page = this.currentPage();
+    const size = this.pageSize();
+
+    const filtered = filter === 'all' ? apps : apps.filter(app => app.status === filter);
+
+    const startIndex = (page - 1) * size;
+    return filtered.slice(startIndex, startIndex + size);
   });
 
-  selectedFilter = signal<string>('all');
+  totalFilteredApplications = computed(() => {
+    const filter = this.selectedFilter();
+    const apps = this.myApplications();
+    return filter === 'all' ? apps.length : apps.filter(app => app.status === filter).length;
+  });
+
+  onFilterChange(filter: string): void {
+    this.selectedFilter.set(filter);
+    this.currentPage.set(1);
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage.set(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   stats = computed(() => this.applicationService.getApplicationStats(this.currentUser()?.id));
 

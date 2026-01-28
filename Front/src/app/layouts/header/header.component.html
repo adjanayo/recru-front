@@ -24,12 +24,15 @@
       <div class="flex items-center">
         @if (isLoggedIn()) {
           <div class="flex items-center gap-3">
-            <a
-              [routerLink]="isAdmin() ? '/admin/dashboard' : '/profile'"
-              class="px-4 py-2 rounded-md  bg-terracotta-600 hover:bg-terracotta-700 transition-colors text-white"
-            >
-              {{ isAdmin() ? 'Dashboard' : 'Mon Profil' }}
-            </a>
+            @if (isAdmin()) {
+              <a
+                [routerLink]="'/admin/dashboard'"
+                class="px-4 py-2 rounded-md  bg-terracotta-600 hover:bg-terracotta-700 transition-colors text-white"
+              >
+                Dashboard
+              </a>
+            }
+
 
             <div class="relative">
               <button
@@ -50,10 +53,10 @@
               @if (isProfileMenuOpen()) {
                 <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
                   @if (isAdmin()) {
-                    <a routerLink="/admin/dashboard" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard Admin</a>
+                    <a routerLink="/admin/dashboard" (click)="isProfileMenuOpen.set(false)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard Admin</a>
                   } @else {
-                    <a routerLink="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mon Profil</a>
-                    <a routerLink="/my-applications" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mes candidatures</a>
+                    <a routerLink="/profile" (click)="isProfileMenuOpen.set(false)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mon Profil</a>
+                    <a routerLink="/my-applications" (click)="isProfileMenuOpen.set(false)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mes candidatures</a>
                   }
                   <button (click)="logout()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     Déconnexion

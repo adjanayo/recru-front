@@ -1,4 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, HostListener, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -12,11 +12,11 @@ import { AuthService } from '../../services/auth.service';
 export class HeaderComponent {
   mobileMenuOpen = signal(false);
   isProfileMenuOpen = signal(false);
-  
+
   currentUser = computed(() => this.authService.currentUser());
   isLoggedIn = computed(() => this.authService.isAuthenticated());
   isAdmin = computed(() => this.authService.isAdmin());
-  
+
   navItems = computed(() => {
     if (this.isAdmin()) {
       return [
@@ -34,8 +34,17 @@ export class HeaderComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private elementRef: ElementRef
   ) {}
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.isProfileMenuOpen.set(false);
+      this.mobileMenuOpen.set(false);
+    }
+  }
 
   toggleMobileMenu() {
     this.mobileMenuOpen.update(v => !v);

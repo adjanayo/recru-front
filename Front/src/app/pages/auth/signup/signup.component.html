@@ -1,23 +1,38 @@
-<div class="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-xl">
-    <div>
-      <div class="flex justify-center">
-        <div class="h-16 w-16 rounded-full bg-terracotta-600 flex items-center justify-center">
-          <span class="text-white font-bold text-2xl">L</span>
-        </div>
-      </div>
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-        Créer un compte
-      </h2>
-      <p class="mt-2 text-center text-sm text-gray-600">
-        Ou
-        <a routerLink="/login" class="font-medium text-terracotta-600 hover:text-terracotta-500">
-          connectez-vous à votre compte
-        </a>
-      </p>
-    </div>
+<div class="relative min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-amber-50 to-amber-100">
+  <!-- Arrière-plan avec motif africain -->
+  <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 bg-[image:var(--background-image-pattern-dots)]"></div>
+    <div class="absolute inset-0 pattern-dots opacity-10"></div>
 
-    <form class="mt-8 space-y-6" (ngSubmit)="onSubmit()">
+    <!-- Formes décoratives inspirées de l'art africain -->
+    <div class="absolute top-0 right-0 w-64 h-64 bg-terracotta-500 opacity-10 rounded-bl-full"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-amber-500 opacity-10 rounded-tr-full"></div>
+  </div>
+
+  <div class="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
+    <div class="flex justify-center">
+      <a routerLink="/" class="flex items-center">
+        <img src="/images/logo/logo (2).png" alt="Logo" class="h-14 w-auto">
+      </a>
+    </div>
+    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+      Créer un compte
+    </h2>
+    <p class="mt-2 text-center text-sm text-gray-600">
+      Ou
+      <a routerLink="/login" class="font-medium text-terracotta-600 hover:text-terracotta-500">
+        connectez-vous à votre compte
+      </a>
+    </p>
+  </div>
+
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
+    <div class="bg-white py-8 px-4 shadow-xl sm:rounded-2xl sm:px-10 relative overflow-hidden">
+      <!-- Motif décoratif -->
+      <div class="absolute top-0 right-0 w-24 h-24 bg-amber-500 opacity-5 rounded-bl-full -mt-6 -mr-6"></div>
+      <div class="absolute bottom-0 left-0 w-24 h-24 bg-terracotta-500 opacity-5 rounded-tr-full -mb-6 -ml-6"></div>
+
+      <form class="mt-8 space-y-6" (ngSubmit)="onSubmit()">
       @if (errorMessage()) {
         <div class="rounded-md bg-red-50 p-4">
           <div class="text-sm text-red-700">
@@ -39,7 +54,7 @@
               required
               [value]="firstName()"
               (input)="firstName.set($any($event.target).value)"
-              class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-terracotta-500 focus:border-terracotta-500 sm:text-sm"
+              class="mt-1 input-base"
               placeholder="Jean"
             />
           </div>
@@ -55,7 +70,7 @@
               required
               [value]="lastName()"
               (input)="lastName.set($any($event.target).value)"
-              class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-terracotta-500 focus:border-terracotta-500 sm:text-sm"
+              class="mt-1 input-base"
               placeholder="Dupont"
             />
           </div>
@@ -72,7 +87,7 @@
             required
             [value]="email()"
             (input)="email.set($any($event.target).value)"
-            class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-terracotta-500 focus:border-terracotta-500 sm:text-sm"
+            class="mt-1 input-base"
             placeholder="votre@email.com"
           />
         </div>
@@ -87,7 +102,7 @@
             type="tel"
             [value]="phone()"
             (input)="phone.set($any($event.target).value)"
-            class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-terracotta-500 focus:border-terracotta-500 sm:text-sm"
+            class="mt-1 input-base"
             placeholder="+221 XX XXX XX XX"
           />
         </div>
@@ -103,7 +118,7 @@
             required
             [value]="password()"
             (input)="password.set($any($event.target).value)"
-            class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-terracotta-500 focus:border-terracotta-500 sm:text-sm"
+            class="mt-1 input-base"
             placeholder="••••••••"
           />
         </div>
@@ -119,7 +134,7 @@
             required
             [value]="confirmPassword()"
             (input)="confirmPassword.set($any($event.target).value)"
-            class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-terracotta-500 focus:border-terracotta-500 sm:text-sm"
+            class="mt-1 input-base"
             placeholder="••••••••"
           />
         </div>
@@ -132,7 +147,7 @@
           type="checkbox"
           [checked]="acceptTerms()"
           (change)="acceptTerms.set($any($event.target).checked)"
-          class="h-4 w-4 text-terracotta-600 focus:ring-terracotta-500 border-gray-300 rounded"
+          class="checkbox-base"
         />
         <label for="accept-terms" class="ml-2 block text-sm text-gray-900">
           J'accepte les <a href="#" class="text-terracotta-600 hover:text-terracotta-500">conditions d'utilisation</a>
@@ -144,7 +159,7 @@
         <button
           type="submit"
           [disabled]="isLoading()"
-          class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-terracotta-600 hover:bg-terracotta-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-terracotta-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          class="group relative w-full btn-primary py-3"
         >
           @if (isLoading()) {
             <span>Inscription en cours...</span>
@@ -154,5 +169,8 @@
         </button>
       </div>
     </form>
+
+
+    </div>
   </div>
 </div>
