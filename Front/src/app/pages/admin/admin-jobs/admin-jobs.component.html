@@ -1,0 +1,141 @@
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900">Gestion des offres d'emploi</h1>
+        <p class="mt-2 text-gray-600">{{ filteredJobs().length }} offres au total</p>
+      </div>
+      <a routerLink="/admin/jobs/create" class="px-6 py-3 bg-terracotta-600 text-white rounded-lg hover:bg-terracotta-700 transition-colors font-medium">
+        + Créer une offre
+      </a>
+    </div>
+
+    <!-- Recherche -->
+    <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+      <input
+        type="text"
+        [value]="searchTerm()"
+        (input)="searchTerm.set($any($event.target).value)"
+        placeholder="Rechercher par titre, entreprise ou domaine..."
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent"
+      />
+    </div>
+
+    <!-- Liste des offres -->
+    <div class="space-y-4">
+      @if (filteredJobs().length === 0) {
+        <div class="bg-white rounded-xl shadow-md p-12 text-center">
+          <div class="text-gray-400 mb-4">
+            <svg class="mx-auto h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-gray-900 mb-2">Aucune offre trouvée</h3>
+          <p class="text-gray-600">Créez votre première offre d'emploi</p>
+        </div>
+      }
+
+      @for (job of filteredJobs(); track job.id) {
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <div class="flex items-start gap-4">
+                @if (job.companyLogo) {
+                  <img [src]="job.companyLogo" [alt]="job.company" class="w-16 h-16 rounded-lg object-cover" />
+                } @else {
+                  <div class="w-16 h-16 rounded-lg bg-terracotta-100 flex items-center justify-center">
+                    <span class="text-2xl font-bold text-terracotta-600">{{ job.company.charAt(0) }}</span>
+                  </div>
+                }
+
+                <div class="flex-1">
+                  <div class="flex items-center gap-3 mb-2">
+                    <h3 class="text-xl font-bold text-gray-900">{{ job.title }}</h3>
+                    @if (job.isPublished) {
+                      <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">Publiée</span>
+                    } @else {
+                      <span class="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full">Brouillon</span>
+                    }
+                  </div>
+                  
+                  <p class="text-gray-700 font-medium mb-2">{{ job.company }}</p>
+                  
+                  <div class="flex flex-wrap gap-4 text-sm text-gray-600 mb-3">
+                    <span>{{ job.location }}</span>
+                    <span>{{ job.type }}</span>
+                    <span>{{ job.domain }}</span>
+                    <span>Publié le {{ formatDate(job.postedDate) }}</span>
+                  </div>
+
+                  <div class="flex items-center gap-6 text-sm text-gray-600">
+                    <span class="flex items-center gap-1">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                      {{ job.viewCount }} vues
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                      {{ job.applicationsCount }} candidatures
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex gap-2 ml-4">
+              <button
+                (click)="togglePublish(job)"
+                [class]="job.isPublished ? 'px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium' : 'px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium'"
+              >
+                {{ job.isPublished ? 'Dépublier' : 'Publier' }}
+              </button>
+              
+              <a [routerLink]="['/admin/jobs/edit', job.id]" class="px-4 py-2 bg-terracotta-600 text-white rounded-lg hover:bg-terracotta-700 transition-colors text-sm font-medium">
+                Modifier
+              </a>
+              
+              <button
+                (click)="confirmDelete(job)"
+                class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
+              >
+                Supprimer
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Modal de confirmation de suppression -->
+    @if (showDeleteModal() && jobToDelete()) {
+      <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-xl p-8 max-w-md w-full">
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Confirmer la suppression</h3>
+          <p class="text-gray-700 mb-6">
+            Êtes-vous sûr de vouloir supprimer l'offre <strong>{{ jobToDelete()!.title }}</strong> ?
+            Cette action est irréversible.
+          </p>
+          <div class="flex gap-4">
+            <button
+              (click)="deleteJob()"
+              class="flex-1 px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
+            >
+              Supprimer
+            </button>
+            <button
+              (click)="showDeleteModal.set(false)"
+              class="flex-1 px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium"
+            >
+              Annuler
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,176 @@
+<div class="relative min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-amber-50 to-amber-100">
+  <!-- Arrière-plan avec motif africain -->
+  <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 bg-[image:var(--background-image-pattern-dots)]"></div>
+    <div class="absolute inset-0 pattern-dots opacity-10"></div>
+
+    <!-- Formes décoratives inspirées de l'art africain -->
+    <div class="absolute top-0 right-0 w-64 h-64 bg-terracotta-500 opacity-10 rounded-bl-full"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-amber-500 opacity-10 rounded-tr-full"></div>
+  </div>
+
+  <div class="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
+    <div class="flex justify-center">
+      <a routerLink="/" class="flex items-center">
+        <img src="/images/logo/logo (2).png" alt="Logo" class="h-14 w-auto">
+      </a>
+    </div>
+    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+      Créer un compte
+    </h2>
+    <p class="mt-2 text-center text-sm text-gray-600">
+      Ou
+      <a routerLink="/login" class="font-medium text-terracotta-600 hover:text-terracotta-500">
+        connectez-vous à votre compte
+      </a>
+    </p>
+  </div>
+
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
+    <div class="bg-white py-8 px-4 shadow-xl sm:rounded-2xl sm:px-10 relative overflow-hidden">
+      <!-- Motif décoratif -->
+      <div class="absolute top-0 right-0 w-24 h-24 bg-amber-500 opacity-5 rounded-bl-full -mt-6 -mr-6"></div>
+      <div class="absolute bottom-0 left-0 w-24 h-24 bg-terracotta-500 opacity-5 rounded-tr-full -mb-6 -ml-6"></div>
+
+      <form class="mt-8 space-y-6" (ngSubmit)="onSubmit()">
+      @if (errorMessage()) {
+        <div class="rounded-md bg-red-50 p-4">
+          <div class="text-sm text-red-700">
+            {{ errorMessage() }}
+          </div>
+        </div>
+      }
+
+      <div class="space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="firstName" class="block text-sm font-medium text-gray-700">
+              Prénom *
+            </label>
+            <input
+              id="firstName"
+              name="firstName"
+              type="text"
+              required
+              [value]="firstName()"
+              (input)="firstName.set($any($event.target).value)"
+              class="mt-1 input-base"
+              placeholder="Jean"
+            />
+          </div>
+
+          <div>
+            <label for="lastName" class="block text-sm font-medium text-gray-700">
+              Nom *
+            </label>
+            <input
+              id="lastName"
+              name="lastName"
+              type="text"
+              required
+              [value]="lastName()"
+              (input)="lastName.set($any($event.target).value)"
+              class="mt-1 input-base"
+              placeholder="Dupont"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">
+            Adresse email *
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            [value]="email()"
+            (input)="email.set($any($event.target).value)"
+            class="mt-1 input-base"
+            placeholder="votre@email.com"
+          />
+        </div>
+
+        <div>
+          <label for="phone" class="block text-sm font-medium text-gray-700">
+            Téléphone
+          </label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            [value]="phone()"
+            (input)="phone.set($any($event.target).value)"
+            class="mt-1 input-base"
+            placeholder="+221 XX XXX XX XX"
+          />
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700">
+            Mot de passe *
+          </label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            [value]="password()"
+            (input)="password.set($any($event.target).value)"
+            class="mt-1 input-base"
+            placeholder="••••••••"
+          />
+        </div>
+
+        <div>
+          <label for="confirmPassword" class="block text-sm font-medium text-gray-700">
+            Confirmer le mot de passe *
+          </label>
+          <input
+            id="confirmPassword"
+            name="confirmPassword"
+            type="password"
+            required
+            [value]="confirmPassword()"
+            (input)="confirmPassword.set($any($event.target).value)"
+            class="mt-1 input-base"
+            placeholder="••••••••"
+          />
+        </div>
+      </div>
+
+      <div class="flex items-center">
+        <input
+          id="accept-terms"
+          name="accept-terms"
+          type="checkbox"
+          [checked]="acceptTerms()"
+          (change)="acceptTerms.set($any($event.target).checked)"
+          class="checkbox-base"
+        />
+        <label for="accept-terms" class="ml-2 block text-sm text-gray-900">
+          J'accepte les <a href="#" class="text-terracotta-600 hover:text-terracotta-500">conditions d'utilisation</a>
+          et la <a href="#" class="text-terracotta-600 hover:text-terracotta-500">politique de confidentialité</a>
+        </label>
+      </div>
+
+      <div>
+        <button
+          type="submit"
+          [disabled]="isLoading()"
+          class="group relative w-full btn-primary py-3"
+        >
+          @if (isLoading()) {
+            <span>Inscription en cours...</span>
+          } @else {
+            <span>S'inscrire</span>
+          }
+        </button>
+      </div>
+    </form>
+
+
+    </div>
+  </div>
+</div>
