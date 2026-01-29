@@ -1,0 +1,96 @@
+<aside
+  class="h-screen bg-white border-r border-gray-100 flex flex-col fixed left-0 top-0 z-50 transition-all duration-300 overflow-hidden"
+  [class.w-64]="!isCollapsed"
+  [class.w-20]="isCollapsed"
+>
+  <!-- Logo -->
+  <div class="p-6 border-b border-gray-100 flex justify-center h-20 items-center">
+    @if (!isCollapsed) {
+      <a routerLink="/" class="text-2xl font-bold text-terracotta-600 tracking-tight whitespace-nowrap">LinkIn</a>
+    } @else {
+      <a routerLink="/" class="text-xl font-bold text-terracotta-600 tracking-tight">L</a>
+    }
+  </div>
+
+  <!-- Navigation -->
+  <nav class="flex-1 px-4 py-8 space-y-2 overflow-y-auto items-center custom-scrollbar">
+    <a routerLink="/admin/dashboard" routerLinkActive="bg-amber-50 text-terracotta-600" [routerLinkActiveOptions]="{exact: true}"
+       class="flex gap-3 items-center px-4 py-3 rounded-lg text-gray-500 hover:bg-gray-50 transition-colors group"
+       [title]="isCollapsed ? 'Accueil' : ''">
+      <lucide-icon [name]="HomeIcon" class="w-5 h-5 shrink-0 transition-colors group-hover:text-terracotta-600"></lucide-icon>
+      @if (!isCollapsed) {
+        <span class="font-medium whitespace-nowrap transition-opacity duration-300">Accueil</span>
+      }
+    </a>
+
+    <a routerLink="/admin/statistics" routerLinkActive="bg-amber-50 text-terracotta-600"
+       class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:bg-gray-50 transition-colors group"
+       [title]="isCollapsed ? 'Statistiques' : ''">
+      <lucide-icon [name]="StatsIcon" class="w-5 h-5 shrink-0 transition-colors group-hover:text-terracotta-600"></lucide-icon>
+      @if (!isCollapsed) {
+        <span class="font-medium whitespace-nowrap transition-opacity duration-300">Statistiques</span>
+      }
+    </a>
+
+    <a routerLink="/admin/profile" routerLinkActive="bg-amber-50 text-terracotta-600"
+       class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:bg-gray-50 transition-colors group"
+       [title]="isCollapsed ? 'Profil' : ''">
+      <lucide-icon [name]="ProfileIcon" class="w-5 h-5 shrink-0 transition-colors group-hover:text-terracotta-600"></lucide-icon>
+      @if (!isCollapsed) {
+        <span class="font-medium whitespace-nowrap transition-opacity duration-300">Profil</span>
+      }
+    </a>
+
+    <a routerLink="/admin/projects" routerLinkActive="bg-amber-50 text-terracotta-600"
+       class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:bg-gray-50 transition-colors group"
+       [title]="isCollapsed ? 'Projets' : ''">
+      <lucide-icon [name]="ProjectsIcon" class="w-5 h-5 shrink-0 transition-colors group-hover:text-terracotta-600"></lucide-icon>
+      @if (!isCollapsed) {
+        <span class="font-medium whitespace-nowrap transition-opacity duration-300">Projets</span>
+      }
+    </a>
+
+    <a routerLink="/admin/subscriptions" routerLinkActive="bg-amber-50 text-terracotta-600"
+       class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:bg-gray-50 transition-colors group"
+       [title]="isCollapsed ? 'Abonnements' : ''">
+      <lucide-icon [name]="SubscriptionIcon" class="w-5 h-5 shrink-0 transition-colors group-hover:text-terracotta-600"></lucide-icon>
+      @if (!isCollapsed) {
+        <span class="font-medium whitespace-nowrap transition-opacity duration-300">Abonnements</span>
+      }
+    </a>
+
+    <a routerLink="/admin/settings" routerLinkActive="bg-amber-50 text-terracotta-600"
+       class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:bg-gray-50 transition-colors group"
+       [title]="isCollapsed ? 'Paramètres' : ''">
+      <lucide-icon [name]="SettingsIcon" class="w-5 h-5 shrink-0 transition-colors group-hover:text-terracotta-600"></lucide-icon>
+      @if (!isCollapsed) {
+        <span class="font-medium whitespace-nowrap transition-opacity duration-300">Paramètres</span>
+      }
+    </a>
+
+    <button (click)="logout()"
+            class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:bg-gray-50 transition-colors group mt-8"
+            [title]="isCollapsed ? 'Déconnexion' : ''">
+      <lucide-icon [name]="LogoutIcon" class="w-5 h-5 shrink-0 transition-colors group-hover:text-terracotta-600"></lucide-icon>
+      @if (!isCollapsed) {
+        <span class="font-medium whitespace-nowrap transition-opacity duration-300">Déconnexion</span>
+      }
+    </button>
+  </nav>
+
+  <!-- Profil Utilisateur -->
+  <div class="p-4 border-t border-gray-100 min-h-[80px] flex items-center">
+    <div class="flex items-center gap-3 p-2 w-full overflow-hidden">
+      <div class="relative shrink-0">
+        <img [src]="currentUser()?.profilePhoto || 'https://i.pravatar.cc/150?u=amadou'"
+             alt="User" class="w-10 h-10 rounded-full object-cover">
+      </div>
+      <div class="flex-1 min-w-0 transition-opacity duration-300" [class.opacity-0]="isCollapsed">
+        <p class="text-sm font-semibold text-gray-900 truncate">
+          {{ currentUser()?.firstName }} {{ currentUser()?.lastName }}
+        </p>
+        <p class="text-xs text-gray-500 truncate">Entrepreneur</p>
+      </div>
+    </div>
+  </div>
+</aside>

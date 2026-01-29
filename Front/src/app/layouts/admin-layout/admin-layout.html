@@ -1,0 +1,11 @@
+<div class="flex">
+  <app-sidebar [isCollapsed]="isSidebarCollapsed()" />
+  <main
+    class="flex-1 min-h-screen bg-gray-50 transition-all duration-300"
+    [class.ml-64]="!isSidebarCollapsed()"
+    [class.ml-20]="isSidebarCollapsed()"
+  >
+    <app-admin-header [title]="''" (onToggle)="toggleSidebar()"></app-admin-header>
+    <router-outlet />
+  </main>
+</div>

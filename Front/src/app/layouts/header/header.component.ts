@@ -21,14 +21,14 @@ export class HeaderComponent {
     if (this.isAdmin()) {
       return [
         { label: 'Accueil', path: '/' },
-        { label: 'Offres d\'emploi', path: '/jobs' },
+        { label: 'Offres d\'emploi', path: '/admin/jobs' },
         { label: 'Dashboard Admin', path: '/admin/dashboard' }
       ];
     }
     return [
       { label: 'Accueil', path: '/' },
-      { label: 'Offres d\'emploi', path: '/jobs' },
-      { label: 'Mes candidatures', path: '/my-applications' }
+      { label: 'Offres d\'emploi', path: '/candidat/jobs' },
+      { label: 'Mes candidatures', path: '/candidat/my-applications' }
     ];
   });
 

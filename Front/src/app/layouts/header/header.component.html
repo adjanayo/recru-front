@@ -55,8 +55,8 @@
                   @if (isAdmin()) {
                     <a routerLink="/admin/dashboard" (click)="isProfileMenuOpen.set(false)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard Admin</a>
                   } @else {
-                    <a routerLink="/profile" (click)="isProfileMenuOpen.set(false)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mon Profil</a>
-                    <a routerLink="/my-applications" (click)="isProfileMenuOpen.set(false)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mes candidatures</a>
+                    <a routerLink="/candidat/profile" (click)="isProfileMenuOpen.set(false)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mon Profil</a>
+                    <a routerLink="/candidat/my-applications" (click)="isProfileMenuOpen.set(false)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mes candidatures</a>
                   }
                   <button (click)="logout()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     Déconnexion

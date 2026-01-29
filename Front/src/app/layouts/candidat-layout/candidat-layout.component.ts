@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet, NavigationEnd, Event } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -6,20 +6,18 @@ import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 
 @Component({
-  selector: 'main-layout',
+  selector: 'candidat-layout',
   standalone: true,
   imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent],
-  templateUrl: './main-layout.component.html',
-  styleUrl: './main-layout.component.css'
+  templateUrl: './candidat-layout.component.html',
+  styleUrl: './candidat-layout.component.css'
 })
-export class MainLayoutComponent implements OnInit {
+export class CandidatLayoutComponent implements OnInit {
   private router = inject(Router);
 
   isDarkMode = signal<boolean>(false);
   currentPath = signal<string>('');
 
-  // Equivalent du computed v-if="!isDashboardRoute"
-  isDashboardRoute = computed(() => this.currentPath().startsWith('/dashboard'));
 
   ngOnInit() {
     this.initTheme();
