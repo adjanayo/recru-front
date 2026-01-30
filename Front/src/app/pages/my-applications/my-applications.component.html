@@ -28,54 +28,64 @@
       <div class="absolute bottom-0 left-0 w-64 h-64 bg-amber-500 opacity-10 rounded-tr-full"></div>
       <div class="absolute top-20 right-10 w-40 h-40 bg-terracotta-500 opacity-10 rounded-full"></div>
     </div>
-
     <!-- Filtres et recherche -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div class="flex-1 max-w-md">
-          <div class="relative">
-            <input type="text" placeholder="Rechercher un article..." v-model="searchQuery"
-              class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-terracotta-500 focus:border-terracotta-500" />
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
+      <div class="bg-white rounded-xl shadow-xl p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          <!-- Recherche par mot-clé -->
+          <div class="lg:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Rechercher</label>
+            <div class="relative">
+              <input
+                type="text"
+                placeholder="Rechercher un article..." v-model="searchQuery"
+                class="input-base pl-10"
+              />
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="flex flex-wrap gap-3">
-          <button
-            (click)="onFilterChange('all')"
-            [class]="selectedFilter() === 'all' ? 'px-4 py-2 bg-terracotta-600 text-white rounded-lg font-medium shadow-sm' : 'px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-terracotta-100 font-medium border border-gray-200'"
-          >
-            Toutes
-          </button>
-          <button
-            (click)="onFilterChange('envoyée')"
-            [class]="selectedFilter() === 'envoyée' ? 'px-4 py-2 bg-terracotta-600 text-white rounded-lg font-medium shadow-sm' : 'px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-terracotta-100 font-medium border border-gray-200'"
-          >
-            Envoyées
-          </button>
-          <button
-            (click)="onFilterChange('en cours')"
-            [class]="selectedFilter() === 'en cours' ? 'px-4 py-2 bg-terracotta-600 text-white rounded-lg font-medium shadow-sm' : 'px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-terracotta-100 font-medium border border-gray-200'"
-          >
-            En cours
-          </button>
-          <button
-            (click)="onFilterChange('retenue')"
-            [class]="selectedFilter() === 'retenue' ? 'px-4 py-2 bg-terracotta-600 text-white rounded-lg font-medium shadow-sm' : 'px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-terracotta-100 font-medium border border-gray-200'"
-          >
-            Retenues
-          </button>
-          <button
-            (click)="onFilterChange('rejetée')"
-            [class]="selectedFilter() === 'rejetée' ? 'px-4 py-2 bg-terracotta-600 text-white rounded-lg font-medium shadow-sm' : 'px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-terracotta-100 font-medium border border-gray-200'"
-          >
-            Rejetées
-          </button>
+
+          <!-- status -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+            <select
+              (change)="onFilterChange($event)"
+              class="input-base"
+            >
+              <option value="">Toutes les candidatures</option>
+              @for (filtre of filtres(); track filtre) {
+                <option [value]="filtre">{{ filtre }}</option>
+              }
+
+            </select>
+          </div>
+
+                  <!-- Localisation -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Localisation</label>
+          <input
+            type="text"
+            placeholder="Ville, pays..."
+            class="input-base"
+          />
         </div>
 
+        <!-- Type de contrat -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Type</label>
+          <select
+            class="input-base"
+          >
+            <option value="">Tous les types</option>
+          </select>
+        </div>
+
+
+        </div>
       </div>
     </div>
 
