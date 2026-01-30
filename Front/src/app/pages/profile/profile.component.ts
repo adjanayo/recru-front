@@ -1,15 +1,14 @@
 import { Component, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ApplicationService } from '../../services/application.service';
-import { User } from '../../models/user.model';
+import { LucideAngularModule, Camera, Lock, Bell, ShieldCheck, Trash2 } from "lucide-angular";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -18,7 +17,7 @@ export class ProfileComponent implements OnInit {
   isEditing = signal(false);
   isSaving = signal(false);
   isUploadingCV = signal(false);
-  
+
   // Form fields
   firstName = signal('');
   lastName = signal('');
@@ -27,6 +26,23 @@ export class ProfileComponent implements OnInit {
   address = signal('');
   educationLevel = signal('');
   experience = signal('');
+  location = signal('Dakar, Sénégal'); // Added for new design
+  bio = signal('Entrepreneur passionné par les technologies agricoles innovantes. Fondateur de EcoFarm Sénégal, une plateforme qui aide les petits agriculteurs à optimiser leurs pratiques agricoles grâce à la technologie.');
+
+  // Icons
+  CameraIcon = Camera;
+  LockIcon = Lock;
+  BellIcon = Bell;
+  ShieldIcon = ShieldCheck;
+  TrashIcon = Trash2;
+
+  // Mock stats for display
+  stats = signal({
+    views: 245,
+    connections: 48,
+    messages: 24,
+    projects: 37
+  });
 
   applicationStats = computed(() => {
     const user = this.currentUser();
@@ -52,6 +68,7 @@ export class ProfileComponent implements OnInit {
       this.address.set(user.address || '');
       this.educationLevel.set(user.educationLevel || '');
       this.experience.set(user.experience || '');
+      // Note: location and bio are currently static for the redesign demo
     }
   }
 
@@ -90,7 +107,7 @@ export class ProfileComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
-      
+
       // Vérifier le type de fichier
       const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
       if (!allowedTypes.includes(file.type)) {

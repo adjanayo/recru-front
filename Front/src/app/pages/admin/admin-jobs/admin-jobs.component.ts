@@ -4,27 +4,60 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { JobService } from '../../../services/job.service';
 import { JobOffer } from '../../../models/job-offer.model';
+import { PaginationComponent } from '../../../components/pagination/pagination.component';
 
 @Component({
   selector: 'app-admin-jobs',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, PaginationComponent],
   templateUrl: './admin-jobs.component.html',
   styleUrl: './admin-jobs.component.css'
 })
 export class AdminJobsComponent {
   jobs = computed(() => this.jobService.jobs());
   searchTerm = signal('');
-  
+  filterStatus = signal<'ALL' | 'PUBLISHED' | 'DRAFT'>('ALL');
+  filterType = signal<string>('ALL');
+
+  // Pagination
+  currentPage = signal(1);
+  pageSize = signal(10);
+
   filteredJobs = computed(() => {
     const term = this.searchTerm().toLowerCase();
-    if (!term) return this.jobs();
-    
-    return this.jobs().filter(job =>
-      job.title.toLowerCase().includes(term) ||
-      job.company.toLowerCase().includes(term) ||
-      job.domain.toLowerCase().includes(term)
-    );
+    const status = this.filterStatus();
+    const type = this.filterType();
+
+    let result = this.jobs();
+
+    // Filtre par recherche texte
+    if (term) {
+      result = result.filter(job =>
+        job.title.toLowerCase().includes(term) ||
+        job.company.toLowerCase().includes(term) ||
+        job.domain.toLowerCase().includes(term)
+      );
+    }
+
+    // Filtre par statut
+    if (status !== 'ALL') {
+      const isPublished = status === 'PUBLISHED';
+      result = result.filter(job => job.isPublished === isPublished);
+    }
+
+    // Filtre par type
+    if (type !== 'ALL') {
+      result = result.filter(job => job.type === type);
+    }
+
+    return result;
+  });
+
+  paginatedJobs = computed(() => {
+    const jobs = this.filteredJobs();
+    const start = (this.currentPage() - 1) * this.pageSize();
+    const end = start + this.pageSize();
+    return jobs.slice(start, end);
   });
 
   showDeleteModal = signal(false);
@@ -58,5 +91,10 @@ export class AdminJobsComponent {
       month: 'short',
       day: 'numeric'
     });
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage.set(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

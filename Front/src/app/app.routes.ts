@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { HomeComponent } from './pages/home/home';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
@@ -13,6 +12,8 @@ import { AdminApplicationsComponent } from './pages/admin/admin-applications/adm
 import { AdminUsersComponent } from './pages/admin/admin-users/admin-users.component';
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
+import { CandidatLayoutComponent } from './layouts/candidat-layout/candidat-layout.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout';
 
 export const routes: Routes = [
   // Auth routes (no layout)
@@ -24,11 +25,9 @@ export const routes: Routes = [
     path: 'signup',
     component: SignupComponent
   },
-  
-  // Public routes with layout
   {
     path: '',
-    component: MainLayoutComponent,
+    component: CandidatLayoutComponent,
     children: [
       {
         path: '',
@@ -54,11 +53,36 @@ export const routes: Routes = [
       }
     ]
   },
-  
+  {
+    path: 'candidat',
+    component: CandidatLayoutComponent,
+    children: [
+
+      {
+        path: 'jobs',
+        component: JobListComponent
+      },
+      {
+        path: 'jobs/:id',
+        component: JobDetailComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'my-applications',
+        component: MyApplicationsComponent,
+        canActivate: [authGuard]
+      }
+    ]
+  },
+
   // Admin routes with layout and guards
   {
     path: 'admin',
-    component: MainLayoutComponent,
+    component: AdminLayoutComponent,
     canActivate: [adminGuard],
     children: [
       {
@@ -76,10 +100,16 @@ export const routes: Routes = [
       {
         path: 'users',
         component: AdminUsersComponent
-      }
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [authGuard]
+      },
+
     ]
   },
-  
+
   // Redirect unknown routes to home
   {
     path: '**',
