@@ -25,6 +25,14 @@ export class MyApplicationsComponent {
     return user ? this.applicationService.getApplicationsByUser(user.id) : [];
   });
 
+  filtres = signal<string[]>([
+    'all',
+    'envoyée',
+    'en cours',
+    'retenue',
+    'rejetée'
+  ]);
+
   filteredApplications = computed(() => {
     const filter = this.selectedFilter();
     const apps = this.myApplications();
@@ -43,8 +51,9 @@ export class MyApplicationsComponent {
     return filter === 'all' ? apps.length : apps.filter(app => app.status === filter).length;
   });
 
-  onFilterChange(filter: string): void {
-    this.selectedFilter.set(filter);
+  onFilterChange(filter: Event): void {
+    const target = filter.target as HTMLSelectElement;
+    this.selectedFilter.set(target.value);
     this.currentPage.set(1);
   }
 

@@ -1,12 +1,13 @@
-/* 1. Nouveau moteur Tailwind 4 */
+
 @import "tailwindcss";
 
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 @plugin "@tailwindcss/aspect-ratio";
 @plugin "tailwindcss-animate";
+@plugin "@iconify/tailwind4";
 
-/* 2. Configuration du Thème (Remplace le fichier tailwind.config.ts) */
+
 @theme {
   /* Vos couleurs personnalisées */
   --color-terracotta-50: #fdf4f2;
@@ -206,6 +207,23 @@
 
   .animate-pulse-slow {
     animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background-color: transparent;
   }
 }
 

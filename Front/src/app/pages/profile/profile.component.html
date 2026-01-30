@@ -1,204 +1,139 @@
-<div class="relative min-h-screen flex flex-col justify-center py-8 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-amber-50 to-amber-100">
-  <!-- Arrière-plan avec motif africain -->
-  <div class="absolute inset-0 z-0">
-    <div class="absolute inset-0"></div>
-    <div class="absolute inset-0 pattern-dots"></div>
-
-    <!-- Formes décoratives inspirées de l'art africain -->
-    <div class="absolute top-0 right-0 w-64 h-64 bg-terracotta-500 opacity-10 rounded-bl-full"></div>
-    <div class="absolute bottom-0 left-0 w-64 h-64 bg-amber-500 opacity-10 rounded-tr-full"></div>
-  </div>
-
-  <div class="px-4 sm:px-6 lg:px-8 z-10">
-    <h1 class="text-3xl font-bold text-gray-900 mb-8">Mon Profil</h1>
+<div class="min-h-screen bg-[#FDFCF6] pb-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
 
     @if (currentUser()) {
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Sidebar -->
-        <div class="lg:col-span-1">
-          <div class="bg-white rounded-xl shadow-md p-6">
-            <!-- Photo de profil -->
-            <div class="text-center mb-6">
-              @if (currentUser()!.profilePhoto) {
-                <img [src]="currentUser()!.profilePhoto" alt="Profile" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
-              } @else {
-                <div class="w-32 h-32 rounded-full bg-terracotta-100 flex items-center justify-center mx-auto mb-4">
-                  <span class="text-4xl font-bold text-terracotta-600">
-                    {{ currentUser()!.firstName.charAt(0) }}{{ currentUser()!.lastName.charAt(0) }}
-                  </span>
-                </div>
-              }
-              <h2 class="text-xl font-bold text-gray-900">{{ currentUser()!.firstName }} {{ currentUser()!.lastName }}</h2>
-              <p class="text-gray-600">{{ currentUser()!.email }}</p>
-            </div>
-
-            <!-- Statistiques -->
-            @if (applicationStats()) {
-              <div class="border-t pt-6 space-y-4">
-                <div>
-                  <p class="text-sm text-gray-600">Candidatures envoyées</p>
-                  <p class="text-2xl font-bold text-gray-900">{{ applicationStats()!.total }}</p>
-                </div>
-                <div>
-                  <p class="text-sm text-gray-600">En cours</p>
-                  <p class="text-xl font-semibold text-amber-600">{{ applicationStats()!.inProgress }}</p>
-                </div>
-                <div>
-                  <p class="text-sm text-gray-600">Acceptées</p>
-                  <p class="text-xl font-semibold text-green-600">{{ applicationStats()!.accepted }}</p>
-                </div>
-              </div>
-            }
-
-            <!-- CV -->
-            <div class="border-t pt-6 mt-6">
-              <h3 class="font-semibold text-gray-900 mb-3">Mon CV</h3>
-              @if (currentUser()!.cvUrl) {
-                <div class="space-y-3">
-                  <div class="flex items-center gap-2 text-sm text-green-600">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    CV téléchargé
-                  </div>
-                  <a [href]="currentUser()!.cvUrl" target="_blank" class="block text-sm text-terracotta-600 hover:text-terracotta-700 mb-2">
-                    Voir mon CV
-                  </a>
-                </div>
-              } @else {
-                <p class="text-sm text-gray-500 mb-3">Aucun CV téléchargé</p>
-              }
-
-              <input
-                id="cv-input"
-                type="file"
-                accept=".pdf,.doc,.docx"
-                (change)="onFileSelected($event)"
-                class="hidden"
-              />
-              <button
-                (click)="triggerFileInput()"
-                [disabled]="isUploadingCV()"
-                class="btn-primary w-full py-2 text-sm"
-              >
-                @if (isUploadingCV()) {
-                  <span>Téléchargement...</span>
-                } @else {
-                  <span>{{ currentUser()!.cvUrl ? 'Remplacer' : 'Télécharger' }} mon CV</span>
-                }
-              </button>
-            </div>
-          </div>
+      <!-- Header Section: Banner & Avatar -->
+      <div class="bg-white rounded-3xl shadow-sm overflow-hidden mb-8 border border-gray-100">
+        <!-- Banner -->
+        <div class="h-48 md:h-64 bg-terracotta-600 relative">
+          <button class="absolute top-4 right-4 p-2 bg-white/20 hover:bg-white/30 rounded-full text-white transition-colors">
+            <lucide-icon [name]="CameraIcon" class="w-5 h-5"></lucide-icon>
+          </button>
         </div>
 
-        <!-- Main Content -->
-        <div class="lg:col-span-2">
-          <div class="bg-white rounded-xl shadow-md p-6">
-            <div class="flex items-center justify-between mb-6">
-              <h2 class="text-2xl font-bold text-gray-900">Informations personnelles</h2>
-              <button
-                (click)="toggleEdit()"
-                class="px-4 py-2 text-terracotta-600 hover:text-terracotta-700 font-medium"
-              >
-                {{ isEditing() ? 'Annuler' : 'Modifier' }}
+        <!-- Avatar & Name Area -->
+        <div class="px-8 pb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div class="flex flex-col md:flex-row md:items-end gap-6 -mt-16 md:-mt-20">
+            <!-- Avatar container -->
+            <div class="relative inline-block">
+              <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white overflow-hidden bg-white shadow-lg">
+                @if (currentUser()!.profilePhoto) {
+                  <img [src]="currentUser()!.profilePhoto" alt="Profile" class="w-full h-full object-cover" />
+                } @else {
+                  <div class="w-full h-full bg-terracotta-100 flex items-center justify-center">
+                    <span class="text-4xl md:text-5xl font-bold text-terracotta-600">
+                      {{ currentUser()!.firstName.charAt(0) }}{{ currentUser()!.lastName.charAt(0) }}
+                    </span>
+                  </div>
+                }
+              </div>
+              <button class="absolute bottom-1 right-1 p-2 bg-white border border-gray-200 rounded-full text-gray-600 shadow-sm hover:bg-gray-50 transition-colors">
+                <lucide-icon [name]="CameraIcon" class="w-4 h-4"></lucide-icon>
               </button>
             </div>
 
+            <div class="mb-2">
+              <h1 class="text-3xl font-bold text-gray-900">{{ currentUser()!.firstName }} {{ currentUser()!.lastName }}</h1>
+              <p class="text-gray-500 font-medium">Entrepreneur</p>
+            </div>
+          </div>
+
+          <div class="mb-2">
+            <button
+              (click)="toggleEdit()"
+              class="px-6 py-2.5 bg-terracotta-600 hover:bg-terracotta-700 text-white font-semibold rounded-lg shadow-sm transition-all text-sm"
+            >
+              Modifier le profil
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content: Personal Info & Sidebar -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Left Column: Personal Info -->
+        <div class="lg:col-span-2 space-y-8">
+          <div class="bg-white rounded-3xl shadow-sm p-8 border border-gray-100">
+            <h2 class="text-xl font-bold text-gray-900 mb-8">Informations personnelles</h2>
+
             <form (ngSubmit)="saveProfile()" class="space-y-6">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Prénom</label>
+                  <label class="block text-sm font-semibold text-gray-700 mb-2">Prénom</label>
                   <input
                     type="text"
                     [value]="firstName()"
                     (input)="firstName.set($any($event.target).value)"
                     [disabled]="!isEditing()"
-                    class="input-base"
+                    class="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-gray-900 focus:ring-2 focus:ring-terracotta-500 disabled:text-gray-500 transition-all"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Nom</label>
+                  <label class="block text-sm font-semibold text-gray-700 mb-2">Nom</label>
                   <input
                     type="text"
                     [value]="lastName()"
                     (input)="lastName.set($any($event.target).value)"
                     [disabled]="!isEditing()"
-                    class="input-base"
+                    class="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-gray-900 focus:ring-2 focus:ring-terracotta-500 disabled:text-gray-500 transition-all"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                <div>
+                  <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                  <input
+                    type="email"
+                    [value]="email()"
+                    disabled
+                    class="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-gray-500 cursor-not-allowed"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-sm font-semibold text-gray-700 mb-2">Téléphone</label>
+                  <input
+                    type="tel"
+                    [value]="phone()"
+                    (input)="phone.set($any($event.target).value)"
+                    [disabled]="!isEditing()"
+                    placeholder="+221 78 123 45 67"
+                    class="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-gray-900 focus:ring-2 focus:ring-terracotta-500 disabled:text-gray-500 transition-all"
                   />
                 </div>
               </div>
 
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                <input
-                  type="email"
-                  [value]="email()"
-                  disabled
-                  class="input-base disabled:bg-gray-100"
-                />
-                <p class="text-xs text-gray-500 mt-1">L'email ne peut pas être modifié</p>
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Téléphone</label>
-                <input
-                  type="tel"
-                  [value]="phone()"
-                  (input)="phone.set($any($event.target).value)"
-                  [disabled]="!isEditing()"
-                  placeholder="+221 XX XXX XX XX"
-                  class="input-base"
-                />
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Adresse</label>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Localisation</label>
                 <input
                   type="text"
-                  [value]="address()"
-                  (input)="address.set($any($event.target).value)"
+                  [value]="location()"
+                  (input)="location.set($any($event.target).value)"
                   [disabled]="!isEditing()"
-                  placeholder="Ville, Pays"
-                  class="input-base"
+                  placeholder="Dakar, Sénégal"
+                  class="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-gray-900 focus:ring-2 focus:ring-terracotta-500 disabled:text-gray-500 transition-all"
                 />
               </div>
 
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Niveau d'études</label>
-                <select
-                  [value]="educationLevel()"
-                  (change)="educationLevel.set($any($event.target).value)"
-                  [disabled]="!isEditing()"
-                  class="input-base"
-                >
-                  <option value="">Sélectionnez un niveau</option>
-                  <option value="Bac">Bac</option>
-                  <option value="Bac+2">Bac+2</option>
-                  <option value="Licence">Licence (Bac+3)</option>
-                  <option value="Master">Master (Bac+5)</option>
-                  <option value="Doctorat">Doctorat (Bac+8)</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Expérience professionnelle</label>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Biographie</label>
                 <textarea
-                  [value]="experience()"
-                  (input)="experience.set($any($event.target).value)"
+                  [value]="bio()"
+                  (input)="bio.set($any($event.target).value)"
                   [disabled]="!isEditing()"
                   rows="4"
-                  placeholder="Décrivez brièvement votre expérience..."
-                  class="input-base"
+                  class="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-gray-900 focus:ring-2 focus:ring-terracotta-500 disabled:text-gray-500 transition-all resize-none"
                 ></textarea>
               </div>
 
               @if (isEditing()) {
-                <div class="flex gap-4">
+                <div class="flex pt-4">
                   <button
                     type="submit"
                     [disabled]="isSaving()"
-                    class="btn-primary px-6 py-3"
+                    class="bg-terracotta-600 hover:bg-terracotta-700 text-white font-bold px-8 py-3 rounded-xl shadow-sm transition-all disabled:opacity-50"
                   >
                     @if (isSaving()) {
                       <span>Enregistrement...</span>
@@ -210,16 +145,57 @@
               }
             </form>
           </div>
+        </div>
 
-          <!-- Mes candidatures -->
-          <div class="bg-white rounded-xl shadow-md p-6 mt-8">
-            <div class="flex items-center justify-between mb-6">
-              <h2 class="text-2xl font-bold text-gray-900">Mes candidatures</h2>
-              <a routerLink="/my-applications" class="text-terracotta-600 hover:text-terracotta-700 font-medium">
-                Voir tout
-              </a>
+        <!-- Right Column: Sidebar Stats & Settings -->
+        <div class="space-y-8">
+          <!-- Statistiques Card -->
+          <div class="bg-white rounded-3xl shadow-sm p-8 border border-gray-100">
+            <h2 class="text-xl font-bold text-gray-900 mb-6">Statistiques</h2>
+            <div class="space-y-4">
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-gray-500 font-medium">Vues du profil</span>
+                <span class="font-bold text-gray-900">{{ stats().views }}</span>
+              </div>
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-gray-500 font-medium">Connexions</span>
+                <span class="font-bold text-gray-900">{{ stats().connections }}</span>
+              </div>
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-gray-500 font-medium">Messages</span>
+                <span class="font-bold text-gray-900">{{ stats().messages }}</span>
+              </div>
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-gray-500 font-medium">Projets consultés</span>
+                <span class="font-bold text-gray-900">{{ stats().projects }}</span>
+              </div>
             </div>
-            <p class="text-gray-600">Consultez l'état de vos candidatures et gérez vos postulations.</p>
+          </div>
+
+          <!-- Paramètres du compte Card -->
+          <div class="bg-white rounded-3xl shadow-sm p-8 border border-gray-100">
+            <h2 class="text-xl font-bold text-gray-900 mb-6">Paramètres du compte</h2>
+            <div class="space-y-2">
+              <button class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors text-left group">
+                <lucide-icon [name]="LockIcon" class="w-4 h-4 text-gray-600 group-hover:text-terracotta-600"></lucide-icon>
+                <span class="text-sm font-medium text-gray-700">Changer le mot de passe</span>
+              </button>
+
+              <button class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors text-left group">
+                <lucide-icon [name]="BellIcon" class="w-4 h-4 text-gray-600 group-hover:text-terracotta-600"></lucide-icon>
+                <span class="text-sm font-medium text-gray-700">Paramètres de notification</span>
+              </button>
+
+              <button class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors text-left group">
+                <lucide-icon [name]="ShieldIcon" class="w-4 h-4 text-gray-600 group-hover:text-terracotta-600"></lucide-icon>
+                <span class="text-sm font-medium text-gray-700">Paramètres de confidentialité</span>
+              </button>
+
+              <button class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-red-50 transition-colors text-left group mt-4">
+                <lucide-icon [name]="TrashIcon" class="w-4 h-4 text-red-500"></lucide-icon>
+                <span class="text-sm font-medium text-red-500">Supprimer le compte</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
