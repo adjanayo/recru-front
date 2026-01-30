@@ -2,12 +2,11 @@ import { Component, inject, Input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { LucideAngularModule, Home, BarChart2, User, Briefcase, CreditCard, Settings, LogOut } from 'lucide-angular';
 import { AuthService } from '../../services/auth.service';
-import { AdminUsersComponent } from '../../pages/admin/admin-users/admin-users.component';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, LucideAngularModule, AdminUsersComponent],
+  imports: [RouterLink, RouterLinkActive, LucideAngularModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })
