@@ -5,7 +5,19 @@
     [class.ml-64]="!isSidebarCollapsed()"
     [class.ml-20]="isSidebarCollapsed()"
   >
-    <app-admin-header [title]="''" (onToggle)="toggleSidebar()"></app-admin-header>
-    <router-outlet />
+    <app-admin-header
+      [title]="''"
+      (onToggle)="toggleSidebar()"
+      (onMessageClick)="showMessaging.set(true)"
+    ></app-admin-header>
+
+    <div class="p-4 sm:px-6 lg:px-8">
+      <router-outlet />
+    </div>
   </main>
+
+  <app-messaging-sidebar
+    [isOpen]="showMessaging()"
+    (close)="showMessaging.set(false)"
+  ></app-messaging-sidebar>
 </div>

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JobService } from '../../../services/job.service';
-import { JobOffer, JobFilters } from '../../../models/job-offer.model';
+import { JobOffer, JobFilters } from '../../../types/job-offer.type';
 
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 

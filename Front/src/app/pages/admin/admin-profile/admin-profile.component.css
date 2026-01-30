@@ -1,0 +1,24 @@
+/* Profile redesign styles */
+:host {
+  display: block;
+}
+
+/* Custom shadow for cards */
+.shadow-sm {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+/* Pattern background for light creambg */
+.bg-\[\#FDFCF6\] {
+  background-color: #FDFCF6;
+}
+
+/* Rounded corners for cards */
+.rounded-3xl {
+  border-radius: 1.5rem;
+}
+
+/* Form input focus styles */
+input:focus, textarea:focus {
+  outline: none;
+}

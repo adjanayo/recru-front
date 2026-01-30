@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { ChatMessage, ChatRoom } from '../models/chat.model';
+import { ChatMessage, ChatRoom } from '../types/chat.type';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +30,7 @@ export class ChatService {
 
         this.chatRoomsSignal.update(rooms => {
           const existingRoomIndex = rooms.findIndex(room => room.jobId === jobId);
-          
+
           if (existingRoomIndex >= 0) {
             const updatedRooms = [...rooms];
             updatedRooms[existingRoomIndex].messages.push(newMessage);

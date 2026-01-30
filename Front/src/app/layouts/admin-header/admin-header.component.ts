@@ -12,6 +12,7 @@ import { LucideAngularModule, X, Globe, Bell, MessageSquare, Menu } from 'lucide
 export class AdminHeaderComponent {
   @Input() title: string = 'Tableau de bord';
   @Output() onToggle = new EventEmitter<void>();
+  @Output() onMessageClick = new EventEmitter<void>();
 
   readonly CloseIcon = X;
   readonly GlobeIcon = Globe;

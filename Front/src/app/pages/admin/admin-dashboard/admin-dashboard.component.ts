@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Lightbulb, Users, MessageCircle, DollarSign, TrendingUp, TrendingDown } from 'lucide-angular';
 import { JobService } from '../../../services/job.service';
 import { ApplicationService } from '../../../services/application.service';
-import { DashboardStats } from '../../../models/stats.model';
+import { DashboardStats } from '../../../types/stats.type';
 import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);

@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Application, ApplicationStats } from '../models/application.model';
+import { Application, ApplicationStats } from '../types/application.type';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,7 @@ export class ApplicationService {
         updatedDate: new Date('2024-01-20')
       }
     ];
-    
+
     this.applicationsSignal.set(mockApplications);
   }
 
@@ -55,7 +55,7 @@ export class ApplicationService {
           appliedDate: new Date(),
           updatedDate: new Date()
         };
-        
+
         this.applicationsSignal.update(apps => [...apps, newApplication]);
         resolve(newApplication);
       }, 500);
@@ -83,7 +83,7 @@ export class ApplicationService {
   }
 
   getApplicationStats(userId?: string): ApplicationStats {
-    const apps = userId 
+    const apps = userId
       ? this.getApplicationsByUser(userId)
       : this.applications();
 

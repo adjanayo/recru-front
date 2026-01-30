@@ -5,7 +5,7 @@ import { JobService } from '../../../services/job.service';
 import { ApplicationService } from '../../../services/application.service';
 import { AuthService } from '../../../services/auth.service';
 import { ChatService } from '../../../services/chat.service';
-import { JobOffer } from '../../../models/job-offer.model';
+import { JobOffer } from '../../../types/job-offer.type';
 import { ChatComponent } from '../../../components/chat/chat.component';
 import { LucideAngularModule } from 'lucide-angular';
 

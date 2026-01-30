@@ -1,6 +1,5 @@
 <div class="min-h-screen bg-[#FDFCF6] pb-12">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-
+  <div class="">
     @if (currentUser()) {
       <!-- Hidden Inputs -->
       <input type="file" id="profile-photo-input" class="hidden" accept="image/*" (change)="onProfilePhotoSelected($event)">
@@ -14,7 +13,7 @@
           @if (currentUser()!.coverPhoto) {
               <img [src]="currentUser()!.coverPhoto" class="w-full h-full object-cover">
           }
-           <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
+          <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
           <button (click)="triggerCoverPhotoInput()" class="absolute top-4 right-4 p-2 bg-white/20 hover:bg-white/40 rounded-full text-white transition-colors cursor-pointer">
             <lucide-icon [name]="CameraIcon" class="w-5 h-5"></lucide-icon>
           </button>
@@ -35,7 +34,7 @@
                     </span>
                   </div>
                 }
-                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors rounded-full"></div>
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors rounded-full"></div>
               </div>
               <button (click)="triggerProfilePhotoInput()" class="absolute bottom-1 right-1 p-2 bg-white border border-gray-200 rounded-full text-gray-600 shadow-sm hover:bg-gray-50 transition-colors cursor-pointer z-10">
                 <lucide-icon [name]="CameraIcon" class="w-4 h-4"></lucide-icon>
@@ -44,7 +43,7 @@
 
             <div class="mb-2">
               <h1 class="text-3xl font-bold text-gray-900">{{ currentUser()!.firstName }} {{ currentUser()!.lastName }}</h1>
-              <p class="text-gray-500 font-medium">Entrepreneur</p>
+              <p class="text-gray-500 font-medium capitalize">{{ currentUser()!.role }}</p>
             </div>
           </div>
 
@@ -156,7 +155,7 @@
             </form>
           </div>
 
-           <!-- Password Change Section -->
+          <!-- Password Change Section -->
           @if (showPasswordForm()) {
             <div class="bg-white rounded-3xl shadow-sm p-8 border border-gray-100 animate-in fade-in slide-in-from-top-4">
               <h2 class="text-xl font-bold text-gray-900 mb-6">Changer le mot de passe</h2>
@@ -214,6 +213,7 @@
 
         <!-- Right Column: Sidebar Stats & Settings -->
         <div class="space-y-8">
+
           <!-- Paramètres du compte Card -->
           <div class="bg-white rounded-3xl shadow-sm p-8 border border-gray-100">
             <h2 class="text-xl font-bold text-gray-900 mb-6">Paramètres du compte</h2>

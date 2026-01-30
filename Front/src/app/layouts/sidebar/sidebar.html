@@ -41,21 +41,21 @@
       }
     </a>
 
-    <a routerLink="/admin/projects" routerLinkActive="bg-amber-50 text-terracotta-600"
+    <a routerLink="/admin/users" routerLinkActive="bg-amber-50 text-terracotta-600"
        class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:bg-gray-50 transition-colors group"
-       [title]="isCollapsed ? 'Projets' : ''">
+       [title]="isCollapsed ? 'Utilisateurs' : ''">
       <lucide-icon [name]="ProjectsIcon" class="w-5 h-5 shrink-0 transition-colors group-hover:text-terracotta-600"></lucide-icon>
       @if (!isCollapsed) {
-        <span class="font-medium whitespace-nowrap transition-opacity duration-300">Projets</span>
+        <span class="font-medium whitespace-nowrap transition-opacity duration-300">Utilisateurs</span>
       }
     </a>
 
-    <a routerLink="/admin/subscriptions" routerLinkActive="bg-amber-50 text-terracotta-600"
+    <a routerLink="/admin/applications" routerLinkActive="bg-amber-50 text-terracotta-600"
        class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-500 hover:bg-gray-50 transition-colors group"
-       [title]="isCollapsed ? 'Abonnements' : ''">
+       [title]="isCollapsed ? 'Candidatures' : ''">
       <lucide-icon [name]="SubscriptionIcon" class="w-5 h-5 shrink-0 transition-colors group-hover:text-terracotta-600"></lucide-icon>
       @if (!isCollapsed) {
-        <span class="font-medium whitespace-nowrap transition-opacity duration-300">Abonnements</span>
+        <span class="font-medium whitespace-nowrap transition-opacity duration-300">Candidatures</span>
       }
     </a>
 

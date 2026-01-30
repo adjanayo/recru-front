@@ -1,0 +1,18 @@
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900">Modifier l'offre</h1>
+      <p class="mt-2 text-gray-600">Mettez à jour les informations de l'offre d'emploi.</p>
+    </div>
+
+    @if (loading()) {
+      <div class="text-center py-12">Chargement...</div>
+    } @else if (job()) {
+      <app-job-form
+        [initialData]="job()"
+        [isEditMode]="true"
+        (formSubmit)="onFormSubmit($event)"
+      ></app-job-form>
+    }
+  </div>
+</div>

@@ -1,7 +1,7 @@
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { User } from '../../../models/user.model';
+import { User } from '../../../types/user.type';
 
 @Component({
   selector: 'app-admin-users',
@@ -71,10 +71,10 @@ export class AdminUsersComponent {
 
   searchTerm = signal('');
   selectedRole = signal<string>('all');
-  
+
   filteredUsers = computed(() => {
     let filtered = this.users();
-    
+
     const term = this.searchTerm().toLowerCase();
     if (term) {
       filtered = filtered.filter(user =>
@@ -83,12 +83,12 @@ export class AdminUsersComponent {
         user.email.toLowerCase().includes(term)
       );
     }
-    
+
     const role = this.selectedRole();
     if (role !== 'all') {
       filtered = filtered.filter(user => user.role === role);
     }
-    
+
     return filtered;
   });
 
