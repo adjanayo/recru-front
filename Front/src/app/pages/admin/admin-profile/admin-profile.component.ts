@@ -1,24 +1,25 @@
 import { Component, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
-import { ApplicationService } from '../../services/application.service';
 
-import { ConfirmationModalComponent } from '../../components/confirmation-modal/confirmation-modal.component';
+
+import { AuthService } from '../../../services/auth.service';
+import { ApplicationService } from '../../../services/application.service';
+import { ConfirmationModalComponent } from '../../../components/confirmation-modal/confirmation-modal.component';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'admin-profile',
   standalone: true,
   imports: [CommonModule, FormsModule, ConfirmationModalComponent],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  templateUrl: './admin-profile.component.html',
+  styleUrl: './admin-profile.component.css'
 })
-export class ProfileComponent implements OnInit {
+export class AdminProfileComponent implements OnInit {
   currentUser = computed(() => this.authService.currentUser());
   isEditing = signal(false);
   isSaving = signal(false);
   isUploadingCV = signal(false);
-  showValidateModal = signal(false);
+  showValidateModal = signal(false); // Only keep what's needed
 
   // Form fields
   firstName = signal('');
@@ -40,6 +41,23 @@ export class ProfileComponent implements OnInit {
     messages: 24,
     projects: 37
   });
+
+  async deleteAccount() {
+    this.closeModals();
+    try {
+        await this.authService.deleteAccount();
+    } catch (e) {
+        alert('Erreur lors de la suppression du compte');
+    }
+  }
+
+  confirmDeleteAccount() {
+    this.showValidateModal.set(true);
+  }
+
+  closeModals() {
+    this.showValidateModal.set(false);
+  }
 
   applicationStats = computed(() => {
     const user = this.currentUser();
@@ -201,22 +219,5 @@ export class ProfileComponent implements OnInit {
 
   triggerFileInput(): void {
     document.getElementById('cv-input')?.click();
-  }
-
-  async deleteAccount() {
-    this.closeModals();
-    try {
-        await this.authService.deleteAccount();
-    } catch (e) {
-        alert('Erreur lors de la suppression du compte');
-    }
-  }
-
-  confirmDeleteAccount() {
-    this.showValidateModal.set(true);
-  }
-
-  closeModals() {
-    this.showValidateModal.set(false);
   }
 }
