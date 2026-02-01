@@ -1,31 +1,38 @@
-import { Component, inject, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { LucideAngularModule } from 'lucide-angular';
-import menu from '../../../assets/config/menu.json';
-import social from '../../../assets/config/social.json';
-import config from '../../../assets/config/config.json';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    LucideAngularModule
-  ],
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css']
+  imports: [CommonModule, RouterLink, FormsModule],
+  templateUrl: './footer.component.html'
 })
 export class FooterComponent {
-  private platformId = inject(PLATFORM_ID);
+  email: string = '';
+  currentYear: number = new Date().getFullYear();
 
-  menuItems = menu.footer;
-  socialLinks = social;
-  footerContent = config.params.footer_content;
-  copyright = config.params.copyright.replace('{year}', new Date().getFullYear().toString());
 
-  isPlatformBrowser() {
-    return isPlatformBrowser(this.platformId);
+
+  platformLinks = [
+    { label: 'À propos', path: '/about' },
+    { label: 'Projets', path: '/projects' },
+    { label: 'Tarification', path: '/pricing' },
+    { label: 'Blog', path: '/blog' }
+  ];
+
+  supportLinks = [
+    { label: 'Aide', path: '/help' },
+    { label: 'FAQ', path: '/faq' },
+    { label: 'Contact', path: '/contact' },
+    { label: 'Confidentialité', path: '/privacy' },
+    { label: 'Conditions', path: '/terms' }
+  ];
+
+  subscribeToNewsletter() {
+    alert(`Merci de vous être abonné avec l'email: ${this.email}`);
+    this.email = '';
   }
 }

@@ -1,0 +1,23 @@
+<div class="flex">
+  <app-sidebar [isCollapsed]="isSidebarCollapsed()" />
+  <main
+    class="flex-1 min-h-screen bg-gray-50 transition-all duration-300"
+    [class.ml-64]="!isSidebarCollapsed()"
+    [class.ml-20]="isSidebarCollapsed()"
+  >
+    <app-admin-header
+      [title]="''"
+      (onToggle)="toggleSidebar()"
+      (onMessageClick)="showMessaging.set(true)"
+    ></app-admin-header>
+
+    <div class="p-4 sm:px-6 lg:px-8">
+      <router-outlet />
+    </div>
+  </main>
+
+  <app-messaging-sidebar
+    [isOpen]="showMessaging()"
+    (close)="showMessaging.set(false)"
+  ></app-messaging-sidebar>
+</div>

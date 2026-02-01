@@ -1,0 +1,260 @@
+<form [formGroup]="jobForm" (ngSubmit)="onSubmit()" class="space-y-8">
+  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+    <h3 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Informations Générales</h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Titre -->
+      <div>
+        <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Titre de l'offre *</label>
+        <input
+          type="text"
+          id="title"
+          formControlName="title"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent outline-none transition-all"
+          [class.border-red-500]="submitted && jobForm.get('title')?.invalid"
+        />
+        @if (submitted && jobForm.get('title')?.errors?.['required']) {
+          <p class="mt-1 text-sm text-red-500">Le titre est requis.</p>
+        }
+      </div>
+
+      <!-- Entreprise -->
+      <div>
+        <label for="company" class="block text-sm font-medium text-gray-700 mb-1">Entreprise *</label>
+        <input
+          type="text"
+          id="company"
+          formControlName="company"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent outline-none transition-all"
+          [class.border-red-500]="submitted && jobForm.get('company')?.invalid"
+        />
+        @if (submitted && jobForm.get('company')?.errors?.['required']) {
+          <p class="mt-1 text-sm text-red-500">Le nom de l'entreprise est requis.</p>
+        }
+      </div>
+
+       <!-- Logo URL -->
+       <div>
+        <label for="companyLogo" class="block text-sm font-medium text-gray-700 mb-1">Logo (URL)</label>
+        <input
+          type="text"
+          id="companyLogo"
+          formControlName="companyLogo"
+          placeholder="https://..."
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent outline-none transition-all"
+        />
+      </div>
+
+      <!-- Localisation -->
+      <div>
+        <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Localisation *</label>
+        <input
+          type="text"
+          id="location"
+          formControlName="location"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent outline-none transition-all"
+           [class.border-red-500]="submitted && jobForm.get('location')?.invalid"
+        />
+          @if (submitted && jobForm.get('location')?.errors?.['required']) {
+          <p class="mt-1 text-sm text-red-500">La localisation est requise.</p>
+        }
+      </div>
+
+      <!-- Type -->
+      <div>
+        <label for="type" class="block text-sm font-medium text-gray-700 mb-1">Type de contrat *</label>
+        <select
+          id="type"
+          formControlName="type"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent outline-none transition-all bg-white"
+        >
+          <option value="CDI">CDI</option>
+          <option value="CDD">CDD</option>
+          <option value="Stage">Stage</option>
+          <option value="Freelance">Freelance</option>
+          <option value="Alternance">Alternance</option>
+        </select>
+      </div>
+
+      <!-- Domaine -->
+      <div>
+        <label for="domain" class="block text-sm font-medium text-gray-700 mb-1">Domaine *</label>
+        <input
+          type="text"
+          id="domain"
+          formControlName="domain"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent outline-none transition-all"
+           [class.border-red-500]="submitted && jobForm.get('domain')?.invalid"
+        />
+          @if (submitted && jobForm.get('domain')?.errors?.['required']) {
+          <p class="mt-1 text-sm text-red-500">Le domaine est requis.</p>
+        }
+      </div>
+
+      <!-- Salaire -->
+      <div>
+        <label for="salary" class="block text-sm font-medium text-gray-700 mb-1">Salaire (Optionnel)</label>
+         <input
+          type="text"
+          id="salary"
+          formControlName="salary"
+          placeholder="ex: 35k - 45k"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent outline-none transition-all"
+        />
+      </div>
+
+       <!-- Statut -->
+       <div class="flex items-center mt-6">
+        <input
+          type="checkbox"
+          id="isPublished"
+          formControlName="isPublished"
+          class="h-4 w-4 text-terracotta-600 focus:ring-terracotta-500 border-gray-300 rounded"
+        />
+        <label for="isPublished" class="ml-2 block text-sm text-gray-900">
+          Publier immédiatement cette offre
+        </label>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="mt-6">
+        <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description *</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          rows="6"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent outline-none transition-all"
+          [class.border-red-500]="submitted && jobForm.get('description')?.invalid"
+        ></textarea>
+         @if (submitted && jobForm.get('description')?.errors?.['required']) {
+          <p class="mt-1 text-sm text-red-500">La description est requise.</p>
+        }
+    </div>
+  </div>
+
+  <!-- Listes dynamiques -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <!-- Prérequis -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <div class="flex justify-between items-center mb-4 border-b pb-2">
+        <h3 class="text-lg font-semibold text-gray-900">Prérequis</h3>
+        <button type="button" (click)="addItem('requirements')" class="text-sm text-terracotta-600 hover:text-terracotta-700 font-medium px-2 py-1 rounded hover:bg-terracotta-50">
+          + Ajouter
+        </button>
+      </div>
+
+      <div formArrayName="requirements" class="space-y-3">
+        @for (req of requirements.controls; track $index) {
+          <div class="flex gap-2">
+            <input
+              [formControlName]="$index"
+              type="text"
+              class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 outline-none"
+              placeholder="Ex: Maîtrise de React"
+            />
+            <button type="button" (click)="removeItem('requirements', $index)" class="p-2 text-gray-400 hover:text-red-500 transition-colors">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Responsabilités -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <div class="flex justify-between items-center mb-4 border-b pb-2">
+        <h3 class="text-lg font-semibold text-gray-900">Responsabilités</h3>
+        <button type="button" (click)="addItem('responsibilities')" class="text-sm text-terracotta-600 hover:text-terracotta-700 font-medium px-2 py-1 rounded hover:bg-terracotta-50">
+          + Ajouter
+        </button>
+      </div>
+
+      <div formArrayName="responsibilities" class="space-y-3">
+        @for (resp of responsibilities.controls; track $index) {
+          <div class="flex gap-2">
+            <input
+              [formControlName]="$index"
+              type="text"
+              class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 outline-none"
+              placeholder="Ex: Développer des nouvelles fonctionnalités"
+            />
+             <button type="button" (click)="removeItem('responsibilities', $index)" class="p-2 text-gray-400 hover:text-red-500 transition-colors">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+
+     <!-- Avantages -->
+     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div class="flex justify-between items-center mb-4 border-b pb-2">
+          <h3 class="text-lg font-semibold text-gray-900">Avantages (Optionnel)</h3>
+          <button type="button" (click)="addItem('benefits')" class="text-sm text-terracotta-600 hover:text-terracotta-700 font-medium px-2 py-1 rounded hover:bg-terracotta-50">
+            + Ajouter
+          </button>
+        </div>
+
+        <div formArrayName="benefits" class="space-y-3">
+          @for (ben of benefits.controls; track $index) {
+            <div class="flex gap-2">
+              <input
+                [formControlName]="$index"
+                type="text"
+                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 outline-none"
+                placeholder="Ex: Tickets restaurant"
+              />
+               <button type="button" (click)="removeItem('benefits', $index)" class="p-2 text-gray-400 hover:text-red-500 transition-colors">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+       <!-- Tags -->
+     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div class="flex justify-between items-center mb-4 border-b pb-2">
+          <h3 class="text-lg font-semibold text-gray-900">Tags</h3>
+          <button type="button" (click)="addItem('tags')" class="text-sm text-terracotta-600 hover:text-terracotta-700 font-medium px-2 py-1 rounded hover:bg-terracotta-50">
+            + Ajouter
+          </button>
+        </div>
+
+        <div formArrayName="tags" class="space-y-3">
+          @for (tag of tags.controls; track $index) {
+            <div class="flex gap-2">
+              <input
+                [formControlName]="$index"
+                type="text"
+                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 outline-none"
+                placeholder="Ex: Angular"
+              />
+               <button type="button" (click)="removeItem('tags', $index)" class="p-2 text-gray-400 hover:text-red-500 transition-colors">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+
+  </div>
+
+  <div class="flex justify-end gap-3 pt-4">
+    <a routerLink="/admin/jobs" class="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium">
+      Annuler
+    </a>
+    <button type="submit" class="px-6 py-3 bg-terracotta-600 text-white rounded-lg hover:bg-terracotta-700 transition-colors font-medium shadow-sm">
+      {{ isEditMode ? 'Enregistrer les modifications' : 'Créer l\'offre' }}
+    </button>
+  </div>
+</form>

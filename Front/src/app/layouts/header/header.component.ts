@@ -1,79 +1,61 @@
-import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterLink, Router, NavigationEnd } from '@angular/router';
-import { LucideAngularModule } from 'lucide-angular';
-import { filter } from 'rxjs/operators';
-import menu from '../../../assets/config/menu.json';
-import social from '../../../assets/config/social.json';
+import { Component, signal, computed, HostListener, ElementRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    LucideAngularModule
-  ],
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  imports: [CommonModule, RouterLink, RouterLinkActive],
+  templateUrl: './header.component.html'
 })
-export class HeaderComponent implements OnInit {
-  // On récupère l'identifiant de la plateforme (Navigateur ou Serveur)
-  private platformId = inject(PLATFORM_ID);
-  private router = inject(Router);
+export class HeaderComponent {
+  mobileMenuOpen = signal(false);
+  isProfileMenuOpen = signal(false);
 
-  isMenuOpen = false;
-  isDarkMode = false;
-  menuItems = menu.main;
-  socialLinks = social;
-  currentPath = '';
+  currentUser = computed(() => this.authService.currentUser());
+  isLoggedIn = computed(() => this.authService.isAuthenticated());
+  isAdmin = computed(() => this.authService.isAdmin());
 
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-    if (isPlatformBrowser(this.platformId)) {
-      if (this.isMenuOpen) {
-        document.body.classList.add('menu-open');
-      } else {
-        document.body.classList.remove('menu-open');
-      }
+  navItems = computed(() => {
+    if (this.isAdmin()) {
+      return [
+        { label: 'Accueil', path: '/' },
+        { label: 'Offres d\'emploi', path: '/admin/jobs' },
+        { label: 'Dashboard Admin', path: '/admin/dashboard' }
+      ];
+    }
+    return [
+      { label: 'Accueil', path: '/' },
+      { label: 'Offres d\'emploi', path: '/candidat/jobs' },
+      { label: 'Mes candidatures', path: '/candidat/my-applications' }
+    ];
+  });
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private elementRef: ElementRef
+  ) {}
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.isProfileMenuOpen.set(false);
+      this.mobileMenuOpen.set(false);
     }
   }
 
-  closeMenu() {
-    this.isMenuOpen = false;
-    if (isPlatformBrowser(this.platformId)) {
-      document.body.classList.remove('menu-open');
-    }
+  toggleMobileMenu() {
+    this.mobileMenuOpen.update(v => !v);
   }
 
-  toggleDarkMode() {
-    // On ne manipule le DOM et localStorage que si on est sur le navigateur
-    if (isPlatformBrowser(this.platformId)) {
-      this.isDarkMode = !this.isDarkMode;
-      document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
-    }
+  toggleProfileMenu() {
+    this.isProfileMenuOpen.update(v => !v);
   }
 
-  ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.currentPath = this.router.url;
-      this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd)
-      ).subscribe((event: any) => {
-        this.currentPath = event.urlAfterRedirects;
-      });
-
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        this.isDarkMode = true;
-        document.documentElement.classList.add('dark');
-      }
-    }
-  }
-
-  isChildActive(item: any): boolean {
-    if (!item.children) return false;
-    return item.children.some((child: any) => this.currentPath === child.url);
+  logout() {
+    this.authService.logout();
+    this.isProfileMenuOpen.set(false);
   }
 }

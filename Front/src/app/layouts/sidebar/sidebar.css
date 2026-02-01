@@ -1,0 +1,5 @@
+/* Sidebar specific styles */
+.sidebar-link-active {
+  background-color: #fffbeb; /* amber-50 */
+  color: #c2410c; /* terracotta-600 */
+}

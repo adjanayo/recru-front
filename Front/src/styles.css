@@ -1,436 +1,290 @@
+
 @import "tailwindcss";
 
-:root {
-  --color-primary-hex: #E60012;
-  --color-secondary-hex: #2563EB;
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/aspect-ratio";
+@plugin "tailwindcss-animate";
+@plugin "@iconify/tailwind4";
 
-  /* Variables dynamiques */
-  --bg-body: #ffffff;
-  --bg-theme-light: #f9fafb;
-  --bg-theme-dark: #111827;
-  --text-main: #555555;
-  --text-dark: #222222;
-  --border-main: #e5e7eb;
-}
 
-.dark {
-  --bg-body: #121212;
-  --bg-theme-light: #1e293b;
-  --bg-theme-dark: #0f172a;
-  --text-main: #d1d5db;
-  --text-dark: #f9fafb;
-  --border-main: #374151;
-}
-
-/* Configuration du thème personnalisé - Tailwind CSS v4 */
 @theme {
-  /* Couleurs sémantiques basées sur les variables dynamiques */
-  --color-text: var(--text-main);
-  --color-dark: var(--text-dark);
-  --color-primary: var(--color-primary-hex);
-  --color-secondary: var(--color-secondary-hex);
-  --color-body: var(--bg-body);
-  --color-border: var(--border-main);
-  --color-light: var(--text-main);
-  --color-theme-light: var(--bg-theme-light);
-  --color-theme-dark: var(--bg-theme-dark);
+  /* Vos couleurs personnalisées */
+  --color-terracotta-50: #fdf4f2;
+  --color-terracotta-100: #fae8e3;
+  --color-terracotta-200: #f5d0c7;
+  --color-terracotta-300: #eeaf9e;
+  --color-terracotta-400: #e58570;
+  --color-terracotta-500: #db6249;
+  --color-terracotta-600: #c94d3a;
+  --color-terracotta-700: #a73d2f;
+  --color-terracotta-800: #89352a;
+  --color-terracotta-900: #723026;
+  --color-terracotta-950: #3d1712;
 
-  /* Tailles de police */
-  --font-size-base: 16px;
-  --font-size-h1: 2.074rem;
-  --font-size-h1-sm: 1.659rem;
-  --font-size-h2: 1.728rem;
-  --font-size-h2-sm: 1.382rem;
-  --font-size-h3: 1.44rem;
-  --font-size-h3-sm: 1.152rem;
-  --font-size-h4: 1.2rem;
-  --font-size-h5: 1rem;
-  --font-size-h6: 1rem;
+  --color-amber-50: #fffbeb;
+  --color-amber-100: #fef3c7;
+  --color-amber-200: #fde68a;
+  --color-amber-300: #fcd34d;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+  --color-amber-700: #b45309;
+  --color-amber-800: #92400e;
+  --color-amber-900: #78350f;
+  --color-amber-950: #451a03;
 
-  /* Polices */
-  --font-primary: Raleway, sans-serif;
-  --font-secondary: "Merriweather Sans", sans-serif;
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-100: #d1fae5;
+  --color-emerald-200: #a7f3d0;
+  --color-emerald-300: #6ee7b7;
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+  --color-emerald-600: #059669;
+  --color-emerald-700: #047857;
+  --color-emerald-800: #065f46;
+  --color-emerald-900: #064e3b;
+  --color-emerald-950: #022c22;
 
-  /* Breakpoints */
-  --breakpoint-sm: 540px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 992px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1536px;
+  /* Fontes */
+  --font-sans: "Inter", "system-ui", sans-serif;
+  --font-display: "Montserrat", sans-serif;
+
+  /* Radius personnalisés */
+  --radius: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+
+  /* Ombres personnalisées */
+  --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-card: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  /* --background-image-pattern-dots: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='%239ca3af' fill-opacity='0.4'/%3E%3C/svg%3E"); */
+
 }
 
-/* Styles de base du template Geeky */
-@layer base {
-  html {
-    font-size: var(--font-size-base);
-  }
-
-  body {
-    background-color: var(--color-body);
-    font-family: var(--font-primary);
-    font-weight: 400;
-    line-height: 1.625;
-    color: var(--color-text);
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-secondary);
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--color-dark);
-  }
-
-  h1, .h1 { font-size: var(--font-size-h1-sm); }
-  @media (min-width: 768px) { h1, .h1 { font-size: var(--font-size-h1); } }
-  h2, .h2 { font-size: var(--font-size-h2-sm); }
-  @media (min-width: 768px) { h2, .h2 { font-size: var(--font-size-h2); } }
-  h3, .h3 { font-size: var(--font-size-h3-sm); }
-  @media (min-width: 768px) { h3, .h3 { font-size: var(--font-size-h3); } }
-  h4, .h4 { font-size: var(--font-size-h4); }
-  h5, .h5 { font-size: var(--font-size-h5); }
-  h6, .h6 { font-size: var(--font-size-h6); }
+@utility pattern-dots {
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%239ca3af' fill-opacity='0.4'/%3E%3C/svg%3E");
+  background-repeat: repeat;
 }
-
-/* Composants personnalisés */
+/* 3. Motifs Africains et Patterns */
 @layer components {
-  /* Boutons - Styles exacts Geeky */
-  .btn {
-    font-family: var(--font-secondary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.625rem 1.25rem;
-    font-weight: 700;
-    transition: all 0.3s;
-    border-radius: 50px;
-    position: relative;
-    overflow: hidden;
-    height: 3rem;
-    text-align: center;
-    cursor: pointer;
-    border: 1px solid transparent;
+  .pattern-zigzag {
+    background-image: linear-gradient(135deg, currentColor 25%, transparent 25%),
+      linear-gradient(225deg, currentColor 25%, transparent 25%),
+      linear-gradient(45deg, currentColor 25%, transparent 25%),
+      linear-gradient(315deg, currentColor 25%, transparent 25%);
+    background-position: 10px 0, 10px 0, 0 0, 0 0;
+    background-size: 20px 20px;
+    background-repeat: repeat;
   }
 
+  .pattern-tribal {
+    background-image: repeating-linear-gradient(0deg, currentColor, currentColor 1px, transparent 1px, transparent 20px),
+      repeating-linear-gradient(90deg, currentColor, currentColor 1px, transparent 1px, transparent 20px),
+      linear-gradient(45deg, transparent 0%, transparent 25%, currentColor 25%, currentColor 50%, transparent 50%, transparent 75%, currentColor 75%, currentColor 100%);
+    background-size: 20px 20px, 20px 20px, 40px 40px;
+  }
+
+  /* Cards avec ombres améliorées */
+  .card-soft {
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .card-soft:hover {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+  /* Boutons sémantiques */
   .btn-primary {
     background-color: var(--color-primary);
     color: white;
-    border: none;
+    @apply px-8 py-4 rounded-full shadow-lg transform transition hover:scale-105 flex items-center justify-center font-medium;
   }
 
-  .btn-primary::before, .btn-outline-primary::before {
-    content: '';
-    position: absolute;
-    height: 100%;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.05);
-    width: 0;
-    top: 0;
-    transition: all 0.5s cubic-bezier(0.42, 0, 0.58, 1);
-    border-radius: 50px;
-  }
-
-  .btn-primary:hover::before, .btn-outline-primary:hover::before {
-    width: 100%;
-    right: auto;
-    left: 0;
+  .btn-primary:hover {
+    background-color: var(--color-primary-dark);
   }
 
   .btn-secondary {
-    background-color: var(--color-secondary);
-    color: white;
-    border: none;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary-dark);
+    @apply px-8 py-4 rounded-full hover:bg-terracotta-50 flex items-center justify-center font-medium transition-colors;
   }
 
-  .btn-outline-primary {
-    border-color: var(--color-primary);
+  .btn-outline {
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    @apply px-6 py-2 rounded-lg hover:bg-terracotta-50 transition-colors font-medium;
+  }
+
+  .btn-white {
+    background-color: white;
+    color: var(--color-primary-dark);
+    @apply px-8 py-4 rounded-full shadow-lg transform transition hover:scale-105 flex items-center justify-center font-medium;
+  }
+
+  .btn-white:hover {
+    background-color: var(--color-amber-50);
+  }
+
+  /* Cards */
+  .card-feature {
+    background-color: white;
+    @apply relative p-8 rounded-2xl shadow-md hover:shadow-xl transition-all h-full transform hover:scale-[1.01];
+  }
+
+  .card-base {
+    background-color: white;
+    @apply rounded-xl shadow-md hover:shadow-lg transition-all p-6;
+  }
+
+  /* Inputs */
+  .input-base {
+    background-color: white;
+    color: var(--color-text-main);
+    @apply w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-terracotta-500 focus:border-transparent outline-none transition-all;
+  }
+
+  .checkbox-base {
+    @apply h-4 w-4 text-terracotta-600 focus:ring-terracotta-500 border-gray-300 rounded-md;
+  }
+
+  /* Badges */
+  .badge-amber {
+    background-color: var(--color-amber-50);
+    color: var(--color-amber-700);
+    @apply px-3 py-1 text-xs font-medium rounded-full;
+  }
+
+  .badge-green {
+    background-color: var(--color-emerald-50);
+    color: var(--color-emerald-700);
+    @apply px-3 py-1 text-xs font-medium rounded-full;
+  }
+
+  /* Décorations */
+  .icon-box {
+    background: linear-gradient(to bottom right, var(--color-terracotta-500), var(--color-primary));
+    @apply w-14 h-14 rounded-xl flex items-center justify-center text-white mb-6 shadow-md;
+  }
+
+  .step-number {
+    background: linear-gradient(to bottom right, var(--color-terracotta-500), var(--color-primary));
+    @apply flex items-center justify-center w-16 h-16 rounded-full text-white font-bold text-xl shadow-lg;
+  }
+
+  .decoration-bg {
+    background: linear-gradient(to right, var(--color-terracotta-500), var(--color-secondary));
+    @apply absolute inset-0 rounded-2xl transform -rotate-2 group-hover:rotate-0 transition-transform;
+  }
+
+  /* Animations personnalisées */
+  @keyframes bounce-slow {
+    0%, 100% {
+      transform: translateY(-5%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  .animate-bounce-slow {
+    animation: bounce-slow 3s infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
     background-color: transparent;
-    color: var(--color-primary);
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+}
+
+@layer base {
+  :root {
+    --color-primary: #c94d3a;
+    --color-primary-dark: #a73d2f;
+    --color-secondary: #f59e0b;
+    --color-success: #059669;
+    --color-error: #dc2626;
+    --color-bg-light: #ffffff;
+    --color-bg-dark: #242424;
+    --color-text-main: #213547;
+    --color-text-muted: #6b7280;
+
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color-scheme: light dark;
+
+    /* On initialise les couleurs par défaut */
+    background-color: var(--color-bg-light);
+    color: var(--color-text-main);
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Variations de taille */
-  .btn-sm {
-    height: 2.5rem;
-    padding: 0.375rem 1.5rem;
-    font-size: 0.875rem;
+  /* Mode Sombre (pour la classe .dark ajoutée par Angular) */
+  .dark {
+    background-color: var(--color-bg-dark);
+    color: rgba(255, 255, 255, 0.87);
   }
 
-  .btn-lg {
-    height: 3.5rem;
-    padding: 0.875rem 2.5rem;
-    font-size: 1.125rem;
-  }
-
-  /* Header - Styles exacts Geeky */
-  .header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    border-bottom: 1px solid var(--color-border);
-    background-color: var(--color-body);
-    padding: 8px 0;
-    transition: all 0.3s;
-  }
-
-  /* navbar items */
-  .navbar {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .navbar-brand {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--color-dark);
-    display: inline-block;
-    height: 39px;
-  }
-
-  .collapse-menu {
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: 60;
+  body {
     margin: 0;
-    height: 100vh;
-    width: 100%;
-    max-width: 400px;
-    align-items: center;
-    border-left: 1px solid var(--color-dark);
-    background-color: var(--color-body);
-    padding: 1.5rem;
-    transition: transform 0.3s ease-in-out;
+    min-width: 320px;
+    min-height: 100vh;
   }
 
-  @media (min-width: 992px) {
-    .collapse-menu {
-      position: static;
-      display: flex;
-      height: auto;
-      width: auto;
-      max-width: none;
-      border-left: none;
-      background-color: transparent;
-      padding: 0;
-      gap: 1rem;
-    }
+  a {
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
+  }
+  a:hover {
+    color: #535bf2;
   }
 
-  @media (min-width: 1280px) {
-    .collapse-menu {
-      gap: 2rem;
-    }
+  button:hover {
+    border-color: #646cff;
   }
-
-  .navbar-nav {
-    margin-top: 4rem;
-    display: flex;
-    flex-direction: column;
-  }
-
-  @media (min-width: 992px) {
-    .navbar-nav {
-      margin-top: 0;
-      flex-direction: row;
-    }
-  }
-
-  .nav-item {
-    margin-bottom: 1.25rem;
-    text-align: left;
-    position: relative;
-  }
-
-  @media (min-width: 992px) {
-    .nav-item {
-      margin-bottom: 0;
-    }
-  }
-
-  .nav-link {
-    border-radius: 30px;
-    padding: 0.625rem 1.5rem;
-    text-align: left;
-    font-family: var(--font-secondary);
-    font-size: 13.5px;
-    letter-spacing: 0.05em;
-    color: var(--color-dark);
-    display: inline-block;
-    text-decoration: none;
-  }
-
-  @media (min-width: 768px) {
-    .nav-link {
-      padding: 0.75rem 0.75rem;
-    }
-  }
-
-  @media (min-width: 992px) {
-    .nav-link {
-      text-align: center;
-    }
-  }
-
-  @media (min-width: 1280px) {
-    .nav-link {
-      padding: 0.75rem 1.25rem;
-    }
-  }
-
-  .nav-link:hover, .nav-link.active {
-    background-color: var(--color-primary);
-    color: white;
-  }
-
-  .nav-dropdown-list {
-    z-index: 10;
-    border-radius: 0.5rem;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-body);
-    padding: 1rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  }
-
-  .nav-dropdown-item {
-    margin-bottom: 0.375rem;
-    list-style: none;
-  }
-
-  .nav-dropdown-link {
-    min-width: 150px;
-    border-radius: 0.25rem;
-    padding: 0.625rem 0.875rem;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-dark);
-    transition: all 0.2s;
-    display: block;
-    text-align: left;
-    text-decoration: none;
-  }
-
-  .nav-dropdown-link:hover, .nav-dropdown-link.active {
-    background-color: rgba(230, 0, 18, 0.1);
-    color: var(--color-primary);
-  }
-
-  /* search style */
-  .search-icon {
-    display: inline-flex;
-    height: 2.5rem;
-    width: 2.5rem;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9999px;
-    background-color: var(--color-primary);
-    padding: 0.625rem;
-    font-size: 1.25rem;
-    color: white;
-    transition: transform 0.2s;
-  }
-
-  .search-icon:hover {
-    transform: scale(1.05);
-  }
-
-  .header-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 55;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-
-  @media (min-width: 992px) {
-    .header-backdrop {
-      display: none;
-    }
-  }
-
-  /* Footer - Styles exacts Geeky */
-  .footer {
-    padding: 70px 0 50px;
-    position: relative;
-    margin-top: 3rem;
-    overflow: hidden;
-  }
-
-  .footer-bg-shape {
-    z-index: -1;
-    position: absolute;
-    min-height: 100%;
-    inset: 0;
-    display: block;
-    object-fit: cover;
-    object-position: left;
-    width: 100%;
-    height: 100%;
-  }
-
-  @media (min-width: 768px) {
-    .footer-bg-shape {
-      object-position: top;
-    }
-  }
-
-  /* Sections */
-  .section {
-    padding: 4rem 0;
-  }
-
-  @media (min-width: 992px) {
-    .section {
-      padding: 6rem 0;
-    }
-  }
-
-  .section-title {
-    margin-bottom: 3rem;
-    text-align: center;
-  }
-
-  /* Cartes */
-  .card {
-    border-radius: 0.5rem;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-body);
-    padding: 1.5rem;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    transition: box-shadow 0.2s;
-  }
-
-  .card:hover {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Logo */
-  .logo {
-    max-height: 100%;
-    max-width: 100%;
-  }
-
-  /* Container */
-  .container {
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  @media (min-width: 540px) { .container { max-width: 540px; } }
-  @media (min-width: 768px) { .container { max-width: 768px; } }
-  @media (min-width: 992px) { .container { max-width: 992px; } }
-  @media (min-width: 1280px) { .container { max-width: 1320px; } }
 }
 
-/* Animations & Helpers */
-body.menu-open {
-  overflow: hidden;
-  padding-right: 0;
+/* Utilitaires de conteneur */
+.main-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
 }
+
+
