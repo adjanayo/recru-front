@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { ApplicationService } from '../../services/application.service';
-import { LucideAngularModule, Camera, Lock, Bell, ShieldCheck, Trash2 } from "lucide-angular";
+
 import { ConfirmationModalComponent } from '../../components/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule, ConfirmationModalComponent],
+  imports: [CommonModule, FormsModule, ConfirmationModalComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -31,12 +31,7 @@ export class ProfileComponent implements OnInit {
   location = signal('Dakar, Sénégal'); // Added for new design
   bio = signal('Entrepreneur passionné par les technologies agricoles innovantes. Fondateur de EcoFarm Sénégal, une plateforme qui aide les petits agriculteurs à optimiser leurs pratiques agricoles grâce à la technologie.');
 
-  // Icons
-  CameraIcon = Camera;
-  LockIcon = Lock;
-  BellIcon = Bell;
-  ShieldIcon = ShieldCheck;
-  TrashIcon = Trash2;
+
 
   // Mock stats for display
   stats = signal({

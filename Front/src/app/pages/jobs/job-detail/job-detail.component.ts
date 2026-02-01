@@ -7,12 +7,12 @@ import { AuthService } from '../../../services/auth.service';
 import { ChatService } from '../../../services/chat.service';
 import { JobOffer } from '../../../types/job-offer.type';
 import { ChatComponent } from '../../../components/chat/chat.component';
-import { LucideAngularModule } from 'lucide-angular';
+
 
 @Component({
   selector: 'app-job-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, ChatComponent, LucideAngularModule],
+  imports: [CommonModule, RouterLink, ChatComponent],
   templateUrl: './job-detail.component.html',
   styleUrl: './job-detail.component.css'
 })

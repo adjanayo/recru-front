@@ -2,7 +2,7 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="mb-8">
       <h1 class="text-3xl font-bold text-gray-900">Gestion des utilisateurs</h1>
-      <p class="mt-2 text-gray-600">{{ filteredUsers().length }} utilisateurs</p>
+      <p class="mt-2 text-gray-600">{{ totalItems() }} utilisateurs</p>
     </div>
 
     <!-- Statistiques -->
@@ -31,14 +31,14 @@
         <input
           type="text"
           [value]="searchTerm()"
-          (input)="searchTerm.set($any($event.target).value)"
+          (input)="onSearch($any($event.target).value)"
           placeholder="Rechercher par nom ou email..."
           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent"
         />
-        
+
         <select
           [value]="selectedRole()"
-          (change)="selectedRole.set($any($event.target).value)"
+          (change)="onRoleChange($any($event.target).value)"
           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 focus:border-transparent"
         >
           <option value="all">Tous les rôles</option>
@@ -49,7 +49,7 @@
     </div>
 
     <!-- Liste des utilisateurs -->
-    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
       <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gray-50">
@@ -75,7 +75,7 @@
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            @if (filteredUsers().length === 0) {
+            @if (users().length === 0) {
               <tr>
                 <td colspan="6" class="px-6 py-12 text-center text-gray-500">
                   Aucun utilisateur trouvé
@@ -83,8 +83,8 @@
               </tr>
             }
 
-            @for (user of filteredUsers(); track user.id) {
-              <tr class="hover:bg-gray-50">
+            @for (user of users(); track user.id) {
+              <tr class="hover:bg-gray-50 transition-colors duration-150">
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="flex items-center">
                     <div class="h-10 w-10 rounded-full bg-terracotta-100 flex items-center justify-center">
@@ -109,12 +109,16 @@
                   }
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <span [class]="user.role === 'admin' ? 'px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-terracotta-100 text-terracotta-800' : 'px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800'">
+                  <span [class]="user.role === 'admin'
+                    ? 'px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-terracotta-100 text-terracotta-800'
+                    : 'px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800'">
                     {{ user.role === 'admin' ? 'Admin' : 'Candidat' }}
                   </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <span [class]="user.isActive ? 'px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800' : 'px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800'">
+                  <span [class]="user.isActive
+                    ? 'px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800'
+                    : 'px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800'">
                     {{ user.isActive ? 'Actif' : 'Inactif' }}
                   </span>
                 </td>
@@ -122,23 +126,94 @@
                   {{ formatDate(user.createdAt) }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <button
-                    (click)="toggleUserStatus(user)"
-                    [class]="user.isActive ? 'text-red-600 hover:text-red-900 mr-3' : 'text-green-600 hover:text-green-900 mr-3'"
-                  >
-                    {{ user.isActive ? 'Désactiver' : 'Activer' }}
-                  </button>
-                  @if (user.cvUrl) {
-                    <a [href]="user.cvUrl" target="_blank" class="text-terracotta-600 hover:text-terracotta-900">
-                      Voir CV
-                    </a>
-                  }
+                  <div class="flex items-center space-x-3">
+                    <button
+                      (click)="initiateToggleStatus(user)"
+                      [class]="user.isActive ? 'text-red-600 hover:text-red-900' : 'text-green-600 hover:text-green-900'"
+                      [title]="user.isActive ? 'Désactiver' : 'Activer'"
+                    >
+                      <!-- Heroicons outline: power -->
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9" />
+                      </svg>
+                    </button>
+                    @if (user.cvUrl) {
+                      <a [href]="user.cvUrl" target="_blank" class="text-terracotta-600 hover:text-terracotta-900" title="Voir CV">
+                           <!-- Heroicons outline: document-text -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                        </svg>
+                      </a>
+                    }
+                  </div>
                 </td>
               </tr>
             }
           </tbody>
         </table>
       </div>
+
+      <!-- Pagination -->
+      @if (totalPages() > 1) {
+        <div class="bg-gray-50 px-4 py-3 border-t border-gray-200 flex items-center justify-between sm:px-6">
+          <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+            <div>
+              <p class="text-sm text-gray-700">
+                Affichage de <span class="font-medium">{{ (currentPage() - 1) * itemsPerPage() + 1 }}</span> à <span class="font-medium">{{ Math.min(currentPage() * itemsPerPage(), totalItems()) }}</span> sur <span class="font-medium">{{ totalItems() }}</span> résultats
+              </p>
+            </div>
+            <div>
+              <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                <button
+                  (click)="onPageChange(currentPage() - 1)"
+                  [disabled]="currentPage() === 1"
+                  class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <span class="sr-only">Précédent</span>
+                  <!-- Heroicon name: solid/chevron-left -->
+                  <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </button>
+
+                @for (page of pages; track page) {
+                  <button
+                    (click)="onPageChange(page)"
+                    [class]="page === currentPage()
+                      ? 'z-10 bg-terracotta-50 border-terracotta-500 text-terracotta-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium'
+                      : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium'"
+                  >
+                    {{ page }}
+                  </button>
+                }
+
+                <button
+                  (click)="onPageChange(currentPage() + 1)"
+                  [disabled]="currentPage() === totalPages()"
+                  class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <span class="sr-only">Suivant</span>
+                  <!-- Heroicon name: solid/chevron-right -->
+                  <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </button>
+              </nav>
+            </div>
+          </div>
+        </div>
+      }
     </div>
   </div>
+
+  <app-confirmation-modal
+    [isOpen]="showConfirmModal()"
+    title="Confirmer l'action"
+    [message]="userToToggle()?.isActive ? 'Êtes-vous sûr de vouloir désactiver cet utilisateur ? Il ne pourra plus accéder à son compte.' : 'Voulez-vous réactiver ce compte utilisateur ?'"
+    [confirmText]="userToToggle()?.isActive ? 'Désactiver' : 'Activer'"
+    cancelText="Annuler"
+    [type]="userToToggle()?.isActive ? 'danger' : 'success'"
+    (confirm)="confirmToggle()"
+    (cancel)="closeModal()"
+  ></app-confirmation-modal>
 </div>

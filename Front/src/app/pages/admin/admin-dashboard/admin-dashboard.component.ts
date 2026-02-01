@@ -1,6 +1,6 @@
 import { Component, signal, computed, AfterViewInit, ViewChild, ElementRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, Lightbulb, Users, MessageCircle, DollarSign, TrendingUp, TrendingDown } from 'lucide-angular';
+
 import { JobService } from '../../../services/job.service';
 import { ApplicationService } from '../../../services/application.service';
 import { DashboardStats } from '../../../types/stats.type';
@@ -11,7 +11,7 @@ Chart.register(...registerables);
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })
@@ -22,12 +22,7 @@ export class AdminDashboardComponent implements AfterViewInit {
   private jobService = inject(JobService);
   private applicationService = inject(ApplicationService);
 
-  readonly ProjectIcon = Lightbulb;
-  readonly ConnexionIcon = Users;
-  readonly MessageIcon = MessageCircle;
-  readonly InvestIcon = DollarSign;
-  readonly ArrowUp = TrendingUp;
-  readonly ArrowDown = TrendingDown;
+
   stats = computed<DashboardStats>(() => {
     const jobs = this.jobService.jobs();
     const applications = this.applicationService.applications();
