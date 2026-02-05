@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_URL } from '../api.config';
-import { Post } from '../models/post.model';
+import { Post } from '../types/post.type';
 
 @Injectable({
   providedIn: 'root',
