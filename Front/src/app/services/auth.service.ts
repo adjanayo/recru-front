@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { User, LoginCredentials, SignupData } from '../models/user.model';
+import { User, LoginCredentials, SignupData } from '../types/user.type';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,7 @@ export class AuthService {
           createdAt: new Date(),
           updatedAt: new Date()
         };
-        
+
         this.currentUserSignal.set(user);
         localStorage.setItem('currentUser', JSON.stringify(user));
         resolve(true);
@@ -58,7 +58,7 @@ export class AuthService {
           createdAt: new Date(),
           updatedAt: new Date()
         };
-        
+
         this.currentUserSignal.set(user);
         localStorage.setItem('currentUser', JSON.stringify(user));
         resolve(true);
@@ -97,13 +97,56 @@ export class AuthService {
   }
 
   async uploadCV(file: File): Promise<string> {
-    // Simulation d'upload
     return new Promise((resolve) => {
       setTimeout(() => {
         const cvUrl = `cv/${file.name}`;
         this.updateProfile({ cvUrl });
         resolve(cvUrl);
       }, 1000);
+    });
+  }
+
+  async uploadProfilePhoto(file: File): Promise<string> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // Mock upload
+        const photoUrl = URL.createObjectURL(file);
+        this.updateProfile({ profilePhoto: photoUrl });
+        resolve(photoUrl);
+      }, 1000);
+    });
+  }
+
+  async uploadCoverPhoto(file: File): Promise<string> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // Mock upload
+        const photoUrl = URL.createObjectURL(file);
+        this.updateProfile({ coverPhoto: photoUrl });
+        resolve(photoUrl);
+      }, 1000);
+    });
+  }
+
+  async changePassword(oldPass: string, newPass: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // Mock password change logic
+        if (oldPass === 'wrong') {
+             resolve(false);
+        } else {
+             resolve(true);
+        }
+      }, 1000);
+    });
+  }
+
+  async deleteAccount(): Promise<boolean> {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            this.logout();
+            resolve(true);
+        }, 1000);
     });
   }
 }

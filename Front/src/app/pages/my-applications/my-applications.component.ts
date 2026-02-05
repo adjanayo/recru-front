@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { ApplicationService } from '../../services/application.service';
 import { AuthService } from '../../services/auth.service';
 import { PaginationComponent } from '../../components/pagination/pagination.component';
-import { Application } from '../../models/application.model';
+import { Application } from '../../types/application.type';
 
 @Component({
   selector: 'app-my-applications',

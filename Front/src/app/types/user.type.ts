@@ -8,6 +8,7 @@ export interface User {
   educationLevel?: string;
   experience?: string;
   profilePhoto?: string;
+  coverPhoto?: string; // Added field
   cvUrl?: string;
   role: 'candidate' | 'admin';
   isActive: boolean;

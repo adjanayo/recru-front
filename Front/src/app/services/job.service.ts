@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { JobOffer, JobFilters } from '../models/job-offer.model';
+import { JobOffer, JobFilters } from '../types/job-offer.type';
 
 @Injectable({
   providedIn: 'root'

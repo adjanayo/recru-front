@@ -8,13 +8,16 @@ import { JobDetailComponent } from './pages/jobs/job-detail/job-detail.component
 import { ProfileComponent } from './pages/profile/profile.component';
 import { MyApplicationsComponent } from './pages/my-applications/my-applications.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
-import { AdminJobsComponent } from './pages/admin/admin-jobs/admin-jobs.component';
+import { AdminJobsComponent } from './pages/admin/admin-jobs/list/admin-jobs.component';
+import { AdminJobCreateComponent } from './pages/admin/admin-jobs/create/admin-job-create.component';
+import { AdminJobEditComponent } from './pages/admin/admin-jobs/edit/admin-job-edit.component';
 import { AdminApplicationsComponent } from './pages/admin/admin-applications/admin-applications.component';
 import { AdminUsersComponent } from './pages/admin/admin-users/admin-users.component';
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
 import { CandidatLayoutComponent } from './layouts/candidat-layout/candidat-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout';
+import { AdminProfileComponent } from './pages/admin/admin-profile/admin-profile.component';
 
 export const routes: Routes = [
   // Auth routes (no layout)
@@ -99,6 +102,14 @@ export const routes: Routes = [
         component: AdminJobsComponent
       },
       {
+        path: 'jobs/create',
+        component: AdminJobCreateComponent
+      },
+      {
+        path: 'jobs/edit/:id',
+        component: AdminJobEditComponent
+      },
+      {
         path: 'applications',
         component: AdminApplicationsComponent
       },
@@ -108,9 +119,10 @@ export const routes: Routes = [
       },
       {
         path: 'profile',
-        component: ProfileComponent,
+        component: AdminProfileComponent,
         canActivate: [authGuard]
       },
+
 
     ]
   },

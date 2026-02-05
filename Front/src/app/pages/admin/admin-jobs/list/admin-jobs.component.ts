@@ -2,14 +2,15 @@ import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { JobService } from '../../../services/job.service';
-import { JobOffer } from '../../../models/job-offer.model';
-import { PaginationComponent } from '../../../components/pagination/pagination.component';
+import { JobService } from '../../../../services/job.service';
+import { JobOffer } from '../../../../types/job-offer.type';
+import { PaginationComponent } from '../../../../components/pagination/pagination.component';
+import { ConfirmationModalComponent } from '../../../../components/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-admin-jobs',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, PaginationComponent],
+  imports: [CommonModule, RouterLink, FormsModule, PaginationComponent, ConfirmationModalComponent],
   templateUrl: './admin-jobs.component.html',
   styleUrl: './admin-jobs.component.css'
 })

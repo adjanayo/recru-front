@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from '../../services/chat.service';
 import { AuthService } from '../../services/auth.service';
-import { ChatMessage } from '../../models/chat.model';
+import { ChatMessage, ChatRoom } from '../../types/chat.type';
 
 @Component({
   selector: 'app-chat',
@@ -19,7 +19,7 @@ export class ChatComponent implements OnInit {
 
   messageText = signal('');
   isSending = signal(false);
-  
+
   messages = computed(() => this.chatService.getMessagesByJobId(this.jobId));
   currentUser = computed(() => this.authService.currentUser());
 
