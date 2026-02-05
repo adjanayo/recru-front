@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import { lastValueFrom } from 'rxjs';
 import { PostsService } from '../../../services/posts.service';
-import { Post } from '../../../models/post.model';
+import { Post } from '../../../types/post.type';
 
 @Component({
   selector: 'app-post-list',

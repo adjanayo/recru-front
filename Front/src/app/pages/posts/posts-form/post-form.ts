@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { injectMutation, injectQueryClient } from '@tanstack/angular-query-experimental';
 import { lastValueFrom } from 'rxjs';
 import { PostsService } from '../../../services/posts.service';
-import { Post } from '../../../models/post.model';
+import { Post } from '../../../types/post.type';
 
 @Component({
   selector: 'app-post-form',
