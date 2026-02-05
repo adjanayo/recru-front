@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home';
+import { PostsComponent } from './pages/posts/posts-lists/posts.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { JobListComponent } from './pages/jobs/job-list/job-list.component';
@@ -43,6 +44,20 @@ export const routes: Routes = [
       {
         path: 'jobs/:id',
         component: JobDetailComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'my-applications',
+        component: MyApplicationsComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'posts',
+        component: PostsComponent
       }
     ]
   },
@@ -107,7 +122,7 @@ export const routes: Routes = [
         component: AdminProfileComponent,
         canActivate: [authGuard]
       },
-      
+
 
     ]
   },
