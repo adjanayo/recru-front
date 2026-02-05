@@ -1,0 +1,24 @@
+<div class="space-y-4">
+  @if (postsQuery.isPending()) {
+    <p class="text-gray-500">Chargement des posts...</p>
+  }
+
+  @if (postsQuery.isError()) {
+    <div class="text-red-500 p-2 border border-red-200 rounded bg-red-50">
+      Erreur lors de la récupération des posts.
+      <button (click)="postsQuery.refetch()" class="ml-2 underline">Réessayer</button>
+    </div>
+  }
+
+  @if (postsQuery.isSuccess()) {
+    <div class="grid grid-cols-1 gap-4">
+      @for (post of postsQuery.data(); track post.id) {
+        <div class="border p-4 rounded bg-white shadow-sm">
+          <h2 class="font-bold text-lg mb-1">{{ post.title }}</h2>
+          <p class="text-sm text-gray-400 mb-2">ID: {{ post.id }} | User: {{ post.userId }}</p>
+          <p class="text-gray-700">{{ post.body }}</p>
+        </div>
+      }
+    </div>
+  }
+</div>
